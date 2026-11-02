@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" id="html-root">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forest Store - Ultimate Digital Marketplace</title>
+  <meta name="description" content="Your ultimate destination for Ooredoo Tunisia internet forfaits, Netflix accounts, Discord bots, and premium digital services at the best prices.">
+
+  <meta property="og:title" content="Forest Store - Ultimate Digital Marketplace">
+  <meta property="og:description" content="Your ultimate destination for Ooredoo Tunisia internet forfaits, Netflix accounts, Discord bots, and premium digital services at the best prices.">
+  <meta property="og:image" content="https://foreststore.netlify.app/assets/img/baner.png">
+  <meta property="og:url" content="https://foreststore.netlify.app/">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Forest Store - Ultimate Digital Marketplace">
+  <meta name="twitter:description" content="Your ultimate destination for Ooredoo Tunisia internet forfaits, Netflix accounts, Discord bots, and premium digital services at the best prices.">
+  <meta name="twitter:image" content="https://foreststore.netlify.app/assets/img/baner.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+<link rel="stylesheet" href="css/internet.css">
+<link rel="stylesheet" href="css/cart.css">
+<script src="js/auth.js"></script>
+<script src="js/cart.js"></script>
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<div id="toast-container"></div>
+
+<div id="site" style="position: relative; z-index: 2;">
+
+  <header id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-link">
+        <div class="server-logo-slot">
+          <img src="assets/img/logo.png" alt="Forest Store Logo">
+        </div>
+        <span class="server-name" data-en="Forest Store" data-ar="فورست ستور">Forest Store</span>
+      </a>
+
+      <nav class="nav-links-wrapper desktop-only">
+        <a href="index.html" class="nav-link" data-en="Home" data-ar="الرئيسية">Home</a>
+        <a href="terms.html" class="nav-link" data-en="Rules" data-ar="القواعد">Rules</a>
+        <a href="store.html" class="nav-link" data-en="Store" data-ar="المتجر">Store</a>
+        <a href="review.html" class="nav-link" data-en="Reviews" data-ar="التقييمات">Reviews</a>
+        <a href="faq.html" class="nav-link" data-en="FAQ" data-ar="الأسئلة">FAQ</a>
+      </nav>
+
+      <div class="desktop-only" style="display:flex; align-items:center; gap:14px;">
+        <button id="lang-toggle-btn" class="lang-btn" onclick="toggleLanguage()">
+          <i data-lucide="globe" style="width:16px; height:16px;"></i>
+          <span id="lang-text">AR</span>
+        </button>
+        <a href="https://discord.gg/akJzbRqeK" class="discord-link btn-primary" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:8px; padding:10px 20px; border-radius:10px;">
+          <i data-lucide="external-link" style="width:18px; height:18px;"></i>
+          <span data-en="Join Now" data-ar="انضم إلينا">Join Now</span>
+        </a>
+      </div>
+
+      <div class="mobile-only" style="display:flex; align-items:center; gap:12px;">
+        <button id="lang-toggle-btn-m" class="lang-btn" onclick="toggleLanguage()">
+          <i data-lucide="globe" style="width:16px; height:16px;"></i>
+          <span id="lang-text-m">AR</span>
+        </button>
+        <button id="menu-btn" aria-label="Toggle Menu" style="background:none; border:none; color:#f3f4f6; cursor:pointer; padding:4px;">
+          <i data-lucide="menu" id="menu-icon" style="width:28px; height:28px;"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu mobile-only" id="mobile-menu" style="flex-direction:column; background:rgba(10, 13, 10, 0.98); backdrop-filter:blur(20px); border-top:1px solid rgba(0,255,82,0.1); padding:20px 24px; margin-top:14px; gap: 8px;">
+      <a href="index.html" class="nav-link" data-en="Home" data-ar="الرئيسية" style="padding:10px 0;">Home</a>
+      <a href="terms.html" class="nav-link" data-en="Rules" data-ar="القواعد" style="padding:10px 0;">Rules</a>
+      <a href="store.html" class="nav-link active" data-en="Store" data-ar="المتجر" style="padding:10px 0;">Store</a>
+      <a href="review.html" class="nav-link" data-en="Reviews" data-ar="التقييمات" style="padding:10px 0;">Reviews</a>
+      <a href="faq.html" class="nav-link" data-en="FAQ" data-ar="الأسئلة" style="padding:10px 0;">FAQ</a>
+      <a href="https://discord.gg/akJzbRqeK" class="discord-link btn-primary" target="_blank" rel="noopener noreferrer" style="margin-top:16px; display:flex; justify-content:center; align-items:center; gap:8px; padding:12px; border-radius:10px;">
+        <i data-lucide="external-link" style="width:18px; height:18px;"></i>
+        <span data-en="Join Now" data-ar="انضم إلينا">Join Now</span>
+      </a>
+    </div>
+  </header>
+
+  
+
+  <section class="bg-grid" style="padding: 140px 0 80px; min-height: 80vh;">
+    <div style="max-width: 1320px; margin: 0 auto; padding: 0 24px;">
+      
+      <div style="text-align: center; margin-bottom: 48px;">
+        <div class="badge-pill" style="margin-bottom: 16px;">
+          <i data-lucide="wifi" style="width:14px; height:14px;"></i>
+          <span data-en="Official Mobile Plans" data-ar="العروض والباقات الرسمية">Official Mobile Plans</span>
+        </div>
+        <h1 style="font-size: clamp(32px, 5vw, 48px); font-weight: 900; color: #fff; margin: 0 0 12px;">
+          <span data-en="Nos Forfaits" data-ar="باقات">Nos Forfaits</span> 
+          <span class="text-gradient" data-en="Internet" data-ar="الإنترنت">Internet</span>
+        </h1>
+        <div class="divider-line"></div>
+        <p style="color: #9ca3af; font-size: 15px;" data-en="Profitez du haut débit au meilleur prix" data-ar="استمتع بالإنترنت العالي السرعة بأفضل الأسعار">Profitez du haut débit au meilleur prix</p>
+      </div>
+
+      <div class="packages-grid">
+
+        <div class="package-card">
+          <div>
+            <div class="card-top-header">
+              <i data-lucide="signal" style="width:20px; height:20px; color:var(--green-a);"></i>
+              <span class="type-badge" data-en="STARTER" data-ar="مبتدئ">STARTER</span>
+            </div>
+            <div class="gigabytes-title">4</div>
+            <div class="gb-unit">GB</div>
+            <ul class="feature-list">
+              <li class="feature-item"><i data-lucide="check" style="width: 16px; color: var(--green-a);"></i> <span>4G/4G+ Basique</span></li>
+              <li class="feature-item"><i data-lucide="check" style="width: 16px; color: var(--green-a);"></i> <span>Valable 7 jours</span></li>
+              <li class="feature-item"><i data-lucide="check" style="width: 16px; color: var(--green-a);"></i> <span>Partage possible</span></li>
+              <li class="feature-item"><i data-lucide="check" style="width: 16px; color: var(--green-a);"></i> <span>Dépannage rapide</span></li>
+            </ul>
+          </div>
+          <div>
+            <div class="price-box">8.000 <span style="font-size:14px; color:var(--green-a);">TND</span></div>
+            <button class="btn-primary" onclick="showToast('Forfait STARTER sélectionné!')" style="width: 100%;" data-en="Choisir ce forfait →" data-ar="اختر هذه الباقة ←">Choisir ce forfait &rarr;</button>
+          </div>
+        </div>
+
+        <div class="package-card">
+          <div>
+            <div class="card-top-header">
+              <i data-lucide="smartphone" style="width:20px; height:20px; color:var(--green-a);"></i>
+              <span class="type-badge" data-en="STANDARD" data-ar="عادي">STANDARD</span>
+            </div>
+            <div class="gigabytes-title">25</div>
+            <div class="gb-unit">GB</div>
+            <ul class="feature-list">
+              <li class="feature-item"><i data-lucide="check" style="width: 16px; color: var(--green-a);"></i> <span>4G/4G+ Standard</span></li>
+              <li class="feature-item"><i data-lucide="check" style="width: 16px; color: var(--green-a);"></i> <span>Valable 30 jours</span></li>
+              <li class="feature-item"><i data-lucide="check" style="width: 16px; color: var(--green-a);"></i> <span>Partage possible</span></li>
+              <li class="feature-item"><i data-lucide="check" style="width: 16px; color: var(--green-a);"></i> <span>Usage quotidien</span></li>
+            </ul>
+          </div>
+          <div>
+            <div class="price-box">24.000 <span style="font-size:14px; color:var(--green-a);">TND</span></div>
+            <button class="btn-primary" onclick="showToast('Forfait STANDARD sélectionné!')" style="width: 100%;" data-en="Choisir ce forfait →" data-ar="اختر هذه الباقة ←">Choisir ce forfait &rarr;</button>
+          </div>
+        </div>
+
+        <div class="package-card featured">
+          <div>
+            <div class="card-top-header">
+              <i data-lucide="trending-up" style="width:20px; height:20px; color:var(--green-a);"></i>
+              <span class="type-badge" data-en="POPULAR" data-ar="الأكثر طلباً">POPULAR</span>
+            </div>
+            <div class="gigabytes-title text-gradient">42</div>
+            <div class="gb-unit">GB</div>
+            <ul class="feature-list">
+              <li class="feature-item"><i data-lucide="check" style="width: 16px; color: var(--green-a);"></i> <span>4G/4G+ Haut Débit</span></li>
+              <li class="feature-item"><i data-lucide="check" style="width: 16px; color: var(--green-a);"></i> <span>Valable 30 jours</span></li>
+              <li class="feature-item"><i data-lucide="check" style="width: 16px; color: var(--green-a);"></i> <span>Partage possible</span></li>
+              <li class="feature-item"><i data-lucide="check" style="width: 16px; color: var(--green-a);"></i> <span>Idéal réseaux sociaux</span></li>
+            </ul>
+          </div>
+          <div>
+            <div class="price-box">50.000 <span style="font-size:14px; color:var(--green-a);">TND</span></div>
+            <button class="btn-primary" onclick="showToast('Forfait POPULAR sélectionné!')" style="width: 100%;" data-en="Choisir ce forfait →" data-ar="اختر هذه الباقة ←">Choisir ce forfait &rarr;</button>
+          </div>
+        </div>
+
+        <div class="package-card">
+          <div>
+            <div class="card-top-header">
+              <i data-lucide="zap" style="width:20px; height:20px; color:var(--green-a);"></i>
+              <span class="type-badge" data-en="TURBO" data-ar="توربو">TURBO</span>
+            </div>
+            <div class="gigabytes-title">75</div>
+            <div class="gb-unit">GB</div>
+            <ul class="feature-list">
+              <li class="feature-item"><i data-lucide="check" style="width: 16px; color: var(--green-a);"></i> <span>4G/4G+ Haut Débit</span></li>
+              <li class="feature-item"><i data-lucide="check" style="width: 16px; color: var(--green-a);"></i> <span>Valable 30 jours</span></li>
+              <li class="feature-item"><i data-lucide="check" style="width: 16px; color: var(--green-a);"></i> <span>Partage possible</span></li>
+              <li class="feature-item"><i data-lucide="check" style="width: 16px; color: var(--green-a);"></i> <span>Réseau prioritaire</span></li>
+            </ul>
+          </div>
+          <div>
+            <div class="price-box">54.000 <span style="font-size:14px; color:var(--green-a);">TND</span></div>
+            <button class="btn-primary" onclick="showToast('Forfait TURBO sélectionné!')" style="width: 100%;" data-en="Choisir ce forfait →" data-ar="اختر هذه الباقة ←">Choisir ce forfait &rarr;</button>
+          </div>
+        </div>
+
+        <div class="package-card">
+          <div>
+            <div class="card-top-header">
+              <i data-lucide="infinity" style="width:20px; height:20px; color:var(--green-a);"></i>
+              <span class="type-badge" data-en="MAX POWER" data-ar="القوة القصوى">MAX POWER</span>
+            </div>
+            <div class="gigabytes-title">100</div>
+            <div class="gb-unit">GB</div>
+            <ul class="feature-list">
+              <li class="feature-item"><i data-lucide="check" style="width: 16px; color: var(--green-a);"></i> <span>4G/4G+ Ultra Haut Débit</span></li>
+              <li class="feature-item"><i data-lucide="check" style="width: 16px; color: var(--green-a);"></i> <span>Valable 30 jours</span></li>
+              <li class="feature-item"><i data-lucide="check" style="width: 16px; color: var(--green-a);"></i> <span>Partage possible</span></li>
+              <li class="feature-item"><i data-lucide="check" style="width: 16px; color: var(--green-a);"></i> <span>Priorité réseau</span></li>
+            </ul>
+          </div>
+          <div>
+            <div class="price-box">58.010 <span style="font-size:14px; color:var(--green-a);">TND</span></div>
+            <button class="btn-primary" onclick="showToast('Forfait MAX POWER sélectionné!')" style="width: 100%;" data-en="Choisir ce forfait →" data-ar="اختر هذه الباقة ←">Choisir ce forfait &rarr;</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <div class="quick-access-wrapper">
+    <div class="quick-access-menu" id="quick-menu">
+      <a href="index.html" class="quick-access-item"><i data-lucide="home" style="width:16px;height:16px;"></i> Home</a>
+      <a href="store.html" class="quick-access-item"><i data-lucide="shopping-bag" style="width:16px;height:16px;"></i> Store</a>
+      <a href="tax.html" class="quick-access-item"><i data-lucide="calculator" style="width:16px;height:16px;"></i> Tax</a>
+      <a href="terms.html" class="quick-access-item"><i data-lucide="scale" style="width:16px;height:16px;"></i> Rules</a>
+    </div>
+    <button class="quick-access-btn" id="quick-btn" title="Quick Access">
+      <i data-lucide="zap" style="width:24px;height:24px;"></i>
+    </button>
+  </div>
+
+  <footer style="border-top: 1px solid rgba(0, 255, 82, 0.15); padding: 64px 0 32px; background: rgba(5, 8, 5, 0.85);">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px;">
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; margin-bottom: 48px;">
+        
+        <div>
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div class="server-logo-slot" style="width: 40px; height: 40px; border-radius: 10px;">
+              <img src="assets/img/logo.png" alt="Forest Store Logo">
+            </div>
+            <span class="server-name" style="font-weight: 900; font-size: 22px; color: #fff;" data-en="Forest Store" data-ar="فورست ستور">Forest Store</span>
+          </div>
+          <p style="color: #6b7280; font-size: 14px; line-height: 1.7; margin: 0 0 20px; max-width: 320px;" data-en="Your premium digital marketplace for gaming and digital products. We provide instant delivery, secure payments, and 24/7 customer support." data-ar="متجرك الرقمي المميز للألعاب والمنتجات الرقمية. نقدم تسليماً فورياً، مدفوعات آمنة، ودعماً فنياً على مدار الساعة.">
+            Your premium digital marketplace for gaming and digital products. We provide instant delivery, secure payments, and 24/7 customer support.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="color: #fff; font-weight: 800; font-size: 15px; margin: 0 0 20px; position: relative; padding-bottom: 8px;">
+            <span data-en="Quick Links" data-ar="روابط سريعة">Quick Links</span>
+            <span style="position: absolute; bottom: 0; left: 0; width: 24px; height: 2px; background: var(--green-a);"></span>
+          </h4>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+            <li><a href="index.html" style="color: #6b7280; text-decoration: none;" data-en="• Home" data-ar="• الرئيسية">• Home</a></li>
+            <li><a href="store.html" style="color: #6b7280; text-decoration: none;" data-en="• Store" data-ar="• المتجر">• Store</a></li>
+            <li><a href="review.html" style="color: #6b7280; text-decoration: none;" data-en="• Reviews" data-ar="• التقييمات">• Reviews</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color: #fff; font-weight: 800; font-size: 15px; margin: 0 0 20px; position: relative; padding-bottom: 8px;">
+            <span data-en="Support" data-ar="الدعم">Support</span>
+            <span style="position: absolute; bottom: 0; left: 0; width: 24px; height: 2px; background: var(--green-a);"></span>
+          </h4>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+            <li><a href="faq.html" style="color: #6b7280; text-decoration: none;" data-en="• FAQ" data-ar="• الأسئلة الشائعة">• FAQ</a></li>
+            <li><a href="terms.html" style="color: #6b7280; text-decoration: none;" data-en="• Terms of Service" data-ar="• شروط الخدمة">• Terms of Service</a></li>
+            <li><a href="index.html#About" style="color: #6b7280; text-decoration: none;" data-en="• About Us" data-ar="• من نحن">• About Us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color: #fff; font-weight: 800; font-size: 15px; margin: 0 0 20px; position: relative; padding-bottom: 8px;">
+            <span data-en="Contact Us" data-ar="اتصل بنا">Contact Us</span>
+            <span style="position: absolute; bottom: 0; left: 0; width: 24px; height: 2px; background: var(--green-a);"></span>
+          </h4>
+          <p style="color: #6b7280; font-size: 13px; margin: 0 0 16px;" data-en="Have a question? Send us a message." data-ar="لديك سؤال؟ أرسل لنا رسالة.">Have a question? Send us a message.</p>
+          
+          <form action="https://formspree.io/f/myeznbro" method="POST" style="display: flex; flex-direction: column; gap: 10px;">
+            <input type="email" name="email" class="form-input" required placeholder="Enter your email" data-en-placeholder="Enter your email" data-ar-placeholder="أدخل بريدك الإلكتروني" />
+            <textarea name="message" class="form-input" required placeholder="Enter your message" data-en-placeholder="Enter your message" data-ar-placeholder="أدخل رسالتك" rows="2" style="resize: none;"></textarea>
+            <button type="submit" class="btn-primary" style="width: 100%; height: 38px; border-radius: 8px;" data-en="Send Message" data-ar="إرسال الرسالة">Send Message</button>
+          </form>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom-flex" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; font-size: 13px; color: #6b7280;">
+        <div>© <span id="year">2026</span> <strong style="color: #fff;" data-en="Forest Store" data-ar="فورست ستور">Forest Store</strong>. <span data-en="All rights reserved." data-ar="جميع الحقوق محفوظة.">All rights reserved.</span></div>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap;">
+          <span style="color: var(--green-a);" data-en="Online 24/7" data-ar="متواجدون 24/7">Online 24/7</span>
+          <span data-en="• Instant Delivery" data-ar="• تسليم فوري">• Instant Delivery</span>
+          <span data-en="• Secure Payment" data-ar="• دفع آمن">• Secure Payment</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+</div>
+
+<script src="js/internet.js"></script>
+</body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forest Store - Customer Reviews & Testimonials</title>
+  <meta name="description" content="Read real reviews and testimonials from our satisfied customers about our digital services.">
+
+  <meta property="og:title" content="Forest Store - Customer Reviews & Testimonials">
+  <meta property="og:description" content="Read real reviews and testimonials from our satisfied customers about our digital services.">
+  <meta property="og:image" content="https://foreststore.netlify.app/assets/img/baner.png">
+  <meta property="og:url" content="https://foreststore.netlify.app/review">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Forest Store - Customer Reviews & Testimonials">
+  <meta name="twitter:description" content="Read real reviews and testimonials from our satisfied customers about our  digital services.">
+  <meta name="twitter:image" content="https://foreststore.netlify.app/assets/img/baner.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+<link rel="stylesheet" href="css/review.css">
+<link rel="stylesheet" href="css/cart.css">
+<script src="js/auth.js"></script>
+<script src="js/cart.js"></script>
+</head>
+<body>
+
+  <canvas id="particles-canvas"></canvas>
+
+  <div id="loading-screen">
+    <div style="position:relative; margin-bottom:32px;">
+      <div class="load-ring spin-slow"></div>
+      <div style="width:96px; height:96px; display:flex; align-items:center; justify-content:center; position:relative; z-index:10;">
+        <div class="server-logo-slot" style="width:64px; height:64px; border-radius:9999px;">
+          <img src="assets/img/logo.png" alt="Forest Store Logo" />
+        </div>
+      </div>
+    </div>
+    <h1 class="server-name" style="font-size:26px; font-weight:900; color:#fff; margin:0 0 4px;">Forest Store</h1>
+    <p style="color:var(--green-a); font-size:14px; margin:0 0 32px;">Customer Reviews & Feedback</p>
+    <div class="load-bar-track">
+      <div class="load-bar-fill" id="load-bar-fill"></div>
+    </div>
+    <p style="color:rgba(0,255,82,.9); font-size:13px; margin-top:12px; font-family:monospace; font-weight: bold;" id="load-percent">0%</p>
+  </div>
+
+  <div id="site">
+
+    <header id="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="brand-link">
+          <div class="server-logo-slot">
+            <img src="assets/img/logo.png" alt="Forest Store Logo" />
+          </div>
+          <span class="server-name">Forest Store</span>
+        </a>
+
+        <nav class="nav-links-wrapper desktop-only">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="terms.html" class="nav-link">Rules</a>
+          <a href="store.html" class="nav-link">Store</a>
+          <a href="review.html" class="nav-link active">Reviews</a>
+          <a href="faq.html" class="nav-link">FAQ</a>
+        </nav>
+
+        <div class="desktop-only" style="display:flex; align-items:center; gap:14px;">
+
+          <div id="discord-auth-container">
+            <a href="login.html" class="btn-primary" style="display:flex; align-items:center; gap:8px; padding:10px 20px; border-radius:10px; text-decoration:none;">
+              <span>Login</span>
+              <i data-lucide="log-in" style="width:16px; height:16px;"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="mobile-only" style="display:flex; align-items:center; gap:12px;">
+
+          <button id="menu-btn" aria-label="Toggle Menu" style="background:none; border:none; color:#f3f4f6; cursor:pointer; padding:4px;">
+            <i data-lucide="menu" id="menu-icon" style="width:28px; height:28px;"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="mobile-menu mobile-only" id="mobile-menu" style="display:none; flex-direction:column; background:rgba(10, 13, 10, 0.98); backdrop-filter:blur(20px); border-top:1px solid rgba(0,255,82,0.1); padding:20px 24px; margin-top:14px;">
+        <a href="index.html" class="nav-link" style="padding:12px 0;">Home</a>
+        <a href="terms.html" class="nav-link" style="padding:12px 0;">Rules</a>
+        <a href="store.html" class="nav-link" style="padding:12px 0;">Store</a>
+        <a href="review.html" class="nav-link active" style="padding:12px 0;">Reviews</a>
+        <a href="faq.html" class="nav-link" style="padding:12px 0;">FAQ</a>
+        
+        <div id="discord-auth-container-mobile" style="margin-top: 16px;">
+          <a href="login.html" class="btn-primary" style="width:100%; display:flex; justify-content:center; align-items:center; gap:8px; padding:12px; border-radius:10px; text-decoration:none;">
+            <span>Login</span>
+            <i data-lucide="log-in" style="width:18px; height:18px;"></i>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <section class="bg-grid" style="position:relative; padding-top:140px; padding-bottom:40px; text-align:center;">
+      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(21,128,61,.15), transparent, var(--bg));"></div>
+      
+      <div style="position:relative; z-index:10; max-width:1280px; margin:0 auto; padding:0 24px;">
+        <div class="badge-pill" style="margin-bottom:16px;">
+          <i data-lucide="star" style="width:14px; height:14px; display:inline-block; vertical-align:middle; fill:var(--green-a); stroke:none; margin-right:6px;"></i>
+          Verified Community Ratings
+        </div>
+
+        <h1 style="font-size:clamp(34px,5vw,56px); font-weight:900; color:#fff; margin:0 0 16px;">
+          Customer <span class="text-gradient">Reviews</span> & Feedback
+        </h1>
+
+        <p style="color:#9ca3af; font-size:clamp(15px,1.8vw,18px); max-width:650px; margin:0 auto 20px; line-height:1.7;">
+          Shouf chnouya ya3tiw rayhom 3la khdmetna fel Forest Store aw zidaktub el-review mta3ek toul fell page!
+        </p>
+      </div>
+    </section>
+
+    <section style="padding:30px 0 96px; position:relative;">
+      <div style="max-width:1280px; margin:0 auto; padding:0 24px;">
+        
+        <div class="grid-reviews-layout" style="display:grid; grid-template-columns: 1fr 360px; gap:32px; align-items:start;">
+          
+          <div>
+            <h2 style="color:#fff; font-size:22px; font-weight:800; margin:0 0 20px; display:flex; align-items:center; gap:10px;">
+              <i data-lucide="message-square" style="color:var(--green-a);"></i>
+              <span>All Reviews (<span id="review-count">0</span>)</span>
+            </h2>
+
+            <div id="reviews-container" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:20px;">
+            </div>
+          </div>
+
+          <div style="position:sticky; top:100px; background:rgba(255,255,255,.02); border:1px solid rgba(0,255,82,.25); border-radius:20px; padding:28px; box-shadow:0 0 30px rgba(0,0,0,0.5);">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px; border-bottom:1px solid rgba(255,255,255,.08); padding-bottom:14px;">
+              <div style="width:36px; height:36px; border-radius:10px; background:rgba(0,255,82,.1); stroke:var(--green-a); display:flex; align-items:center; justify-content:center; color:var(--green-a);">
+                <i data-lucide="edit-3" style="width:20px; height:20px;"></i>
+              </div>
+              <div>
+                <h3 style="color:#fff; font-size:18px; font-weight:800; margin:0;">Write a Review</h3>
+                <span style="color:#6b7280; font-size:12px;">Share your opinion with us</span>
+              </div>
+            </div>
+
+            <form id="review-form" onsubmit="submitNewReview(event)" style="display:flex; flex-direction:column; gap:16px;">
+              <div>
+                <label style="display:block; color:#d1d5db; font-size:13px; font-weight:700; margin-bottom:6px;">Your Name</label>
+                <input type="text" id="rev-name" required placeholder="e.g. Rayen M." class="form-input" />
+              </div>
+
+              <div>
+                <label style="display:block; color:#d1d5db; font-size:13px; font-weight:700; margin-bottom:6px;">Select Role (Client Type)</label>
+                <select id="rev-role" class="form-input" style="background:#0a0d0a; cursor:pointer;">
+                  <option value="Client • Gamer">Client • Gamer</option>
+                  <option value="Client • Server Owner">Client • Server Owner</option>
+                  <option value="Client • VIP Member">Client • VIP Member</option>
+                </select>
+              </div>
+
+              <div>
+                <label style="display:block; color:#d1d5db; font-size:13px; font-weight:700; margin-bottom:6px;">Product Purchased</label>
+                <input type="text" id="rev-product" required placeholder="e.g. Free Fire Diamonds / Discord Bot" class="form-input" />
+              </div>
+
+              <div>
+                <label style="display:block; color:#d1d5db; font-size:13px; font-weight:700; margin-bottom:6px;">Your Feedback / Review Text</label>
+                <textarea id="rev-text" required rows="3" placeholder="Write your review experience here..." class="form-input" style="resize:none;"></textarea>
+              </div>
+
+              <div>
+                <label style="display:block; color:#d1d5db; font-size:13px; font-weight:700; margin-bottom:8px;">Rating</label>
+                <div class="star-rating" id="star-selector">
+                  <i data-star="1" class="active">★</i>
+                  <i data-star="2" class="active">★</i>
+                  <i data-star="3" class="active">★</i>
+                  <i data-star="4" class="active">★</i>
+                  <i data-star="5" class="active">★</i>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-primary" style="padding:14px; border-radius:12px; font-size:15px; margin-top:8px; display:flex; align-items:center; justify-content:center; gap:8px;">
+                <i data-lucide="send" style="width:18px; height:18px;"></i>
+                <span>Submit &amp; Publish Review</span>
+              </button>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="quick-access-wrapper">
+        <div class="quick-access-menu" id="quick-menu">
+          <a href="#hero" class="quick-access-item"><i data-lucide="home" style="width:16px;height:16px;"></i> Home</a>
+          <a href="store.html" class="quick-access-item"><i data-lucide="shopping-bag" style="width:16px;height:16px;"></i> Store</a>
+          <a href="#services" class="quick-access-item"><i data-lucide="arrow-down-up" style="width:16px;height:16px;"></i> ForFaits</a>
+          <a href="tax.html" class="quick-access-item"><i data-lucide="calculator" style="width:16px;height:16px;"></i> Tax</a>
+        </div>
+        <button class="quick-access-btn" id="quick-btn" title="Quick Access">
+          <i data-lucide="zap" style="width:24px;height:24px;"></i>
+        </button>
+      </div>
+    </section>
+
+    <footer style="border-top: 1px solid rgba(0, 255, 82, 0.15); padding: 64px 0 32px; position: relative; color: #9ca3af; direction: ltr; text-align: left; background: rgba(5, 8, 5, 0.8);">
+      <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px;">
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; margin-bottom: 48px;">
+          
+          <div style="grid-column: span 1.5;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+              <div class="server-logo-slot" style="width: 40px; height: 40px; border-radius: 10px;">
+                <img src="assets/img/logo.png" alt="Forest Store Logo" />
+              </div>
+              <span class="server-name" style="font-weight: 900; font-size: 22px; color: #fff;">Forest Store</span>
+            </div>
+            <p style="color: #6b7280; font-size: 14px; line-height: 1.7; margin: 0 0 20px; max-width: 320px;">
+              Your premium digital marketplace for gaming and digital products. We provide instant delivery, secure payments, and 24/7 customer support.
+            </p>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <a href="https://discord.gg/akJzbRqeK" class="discord-link" target="_blank" rel="noopener noreferrer" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(255, 255, 255, 0.05); display: inline-flex; align-items: center; justify-content: center; text-decoration: none;">
+                <img src="https://cdn.simpleicons.org/discord/9ca3af" alt="Discord" style="width: 18px; height: 18px;" />
+              </a>
+              <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(255, 255, 255, 0.05); display: inline-flex; align-items: center; justify-content: center; text-decoration: none;">
+                <img src="https://cdn.simpleicons.org/instagram/9ca3af" alt="Instagram" style="width: 18px; height: 18px;" />
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h4 style="color: #fff; font-weight: 800; font-size: 15px; margin: 0 0 20px; position: relative; padding-bottom: 8px;">
+              Quick Links
+              <span style="position: absolute; bottom: 0; left: 0; width: 24px; height: 2px; background: var(--green-a);"></span>
+            </h4>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+              <li><a href="index.html" style="color: #6b7280; text-decoration: none;">• Home</a></li>
+              <li><a href="store.html" style="color: #6b7280; text-decoration: none;">• Store</a></li>
+              <li><a href="review.html" style="color: #6b7280; text-decoration: none;">• Reviews</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 style="color: #fff; font-weight: 800; font-size: 15px; margin: 0 0 20px; position: relative; padding-bottom: 8px;">
+              Support
+              <span style="position: absolute; bottom: 0; left: 0; width: 24px; height: 2px; background: var(--green-a);"></span>
+            </h4>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+              <li><a href="faq.html" style="color: #6b7280; text-decoration: none;">• FAQ</a></li>
+              <li><a href="terms.html" style="color: #6b7280; text-decoration: none;">• Terms of Service</a></li>
+              <li><a href="index.html#About" style="color: #6b7280; text-decoration: none;">• About Us</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 style="color: #fff; font-weight: 800; font-size: 15px; margin: 0 0 20px; position: relative; padding-bottom: 8px;">
+              Contact Us
+              <span style="position: absolute; bottom: 0; left: 0; width: 24px; height: 2px; background: var(--green-a); box-shadow: 0 0 8px var(--green-a);"></span>
+            </h4>
+            <p style="color: #6b7280; font-size: 13px; margin: 0 0 16px;">Have a question? Send us a message.</p>
+
+            <form action="https://formspree.io/f/myeznbro" method="POST" style="display: flex; flex-direction: column; gap: 10px;">
+              <div style="position: relative;">
+                <i data-lucide="mail" style="position: absolute; left: 12px; top: 12px; width: 16px; height: 16px; color: #6b7280;"></i>
+                <input type="email" name="email" required placeholder="Enter your email" style="width: 100%; padding: 10px 12px 10px 38px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff; font-size: 13px; outline: none;" />
+              </div>
+
+              <div style="position: relative;">
+                <i data-lucide="message-square" style="position: absolute; left: 12px; top: 12px; width: 16px; height: 16px; color: #6b7280;"></i>
+                <textarea name="message" required placeholder="Enter your message" rows="3" style="width: 100%; padding: 10px 12px 10px 38px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff; font-size: 13px; outline: none; resize: none; font-family: inherit;"></textarea>
+              </div>
+
+              <button type="submit" style="width: 100%; background: var(--green-b); color: #0a0d0a; font-weight: 800; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 0 10px rgba(0, 255, 82, 0.2);">
+                <i data-lucide="send" style="width: 14px; height: 14px;"></i> Send Message
+              </button>
+            </form>
+          </div>
+
+        </div>
+
+        <div style="border-top: 1px solid rgba(255, 255, 255, 0.05); border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 24px 0; margin-bottom: 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px;">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(0, 255, 82, 0.1); display: flex; align-items: center; justify-content: center; color: var(--green-a);">
+                <i data-lucide="mail" style="width: 18px; height: 18px;"></i>
+              </div>
+              <div>
+                <div style="font-size: 11px; color: #6b7280;">Email</div>
+                <div style="font-size: 13px; color: #fff; font-weight: 600;">foreststore@gmail.com</div>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(0, 255, 82, 0.1); display: flex; align-items: center; justify-content: center; color: var(--green-a);">
+                <i data-lucide="phone" style="width: 18px; height: 18px;"></i>
+              </div>
+              <div>
+                <div style="font-size: 11px; color: #6b7280;">Phone</div>
+                <div style="font-size: 13px; color: #fff; font-weight: 600;">+216 </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 12px; color: #6b7280; display: flex; align-items: center; gap: 4px;">
+              <i data-lucide="shield-check" style="width: 14px; height: 14px; color: var(--green-a);"></i> Secure Payments
+            </span>
+            <span style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(0, 255, 82, 0.2); padding: 4px 10px; border-radius: 6px; font-size: 12px; color: #fff; font-weight: 700;">Ooredoo</span>
+            <span style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(0, 255, 82, 0.2); padding: 4px 10px; border-radius: 6px; font-size: 12px; color: #fff; font-weight: 700;">Binance</span>
+            <span style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(0, 255, 82, 0.2); padding: 4px 10px; border-radius: 6px; font-size: 12px; color: #fff; font-weight: 700;">D17</span>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; font-size: 13px; color: #6b7280;">
+          <div>© <span id="year">2026</span> <strong style="color: #fff;" class="server-name-inline">Forest Store</strong>. All rights reserved.</div>
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <span style="display: inline-flex; align-items: center; gap: 6px; color: var(--green-a);">
+              <span style="width: 8px; height: 8px; background: var(--green-a); border-radius: 50%; display: inline-block; box-shadow: 0 0 8px var(--green-a);"></span> Online 24/7
+            </span>
+            <span>• Instant Delivery</span>
+            <span>• Secure Payment</span>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="js/review.js"></script>
+</body>
+</html>

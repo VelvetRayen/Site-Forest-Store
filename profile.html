@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forest Store - User Profile</title>
+  <meta name="description" content="User profile, orders, invoices, and support tickets dashboard.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="js/auth.js"></script>
+<script src="js/cart.js"></script>
+  <script>if (!Auth.isLoggedIn()) location.replace(Auth.loginUrl());</script>
+
+<link rel="stylesheet" href="css/profile.css">
+<link rel="stylesheet" href="css/cart.css">
+</head>
+<body>
+
+  <div id="toast-notification">
+    <i data-lucide="check-circle" style="width:20px;height:20px;"></i>
+    <span id="toast-msg">Action successful!</span>
+  </div>
+
+  <header id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-link">
+        <div class="server-logo-slot">
+          <img src="assets/img/logo.png" alt="Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; display: block;" onerror="this.style.display='none'">
+        </div>
+        <span class="server-name">Forest Store</span>
+      </a>
+
+      <nav class="nav-links-wrapper desktop-only">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="store.html" class="nav-link">Store</a>
+        <a href="profile.html" class="nav-link active">Profile</a>
+      </nav>
+
+      <div class="desktop-only" style="align-items:center; gap:14px;">
+      <div id="auth-container">
+        <a href="login.html" class="btn-primary">
+          <span>Login</span>
+          <i data-lucide="log-in" style="width:16px; height:16px;"></i>
+        </a>
+      </div>
+      </div>
+
+      <div class="mobile-only" style="align-items:center; gap:12px;">
+      <button id="menu-btn" aria-label="Toggle Menu" style="background:none; border:none; color:#f3f4f6; cursor:pointer; padding:4px;">
+        <i data-lucide="menu" id="menu-icon" style="width:28px; height:28px;"></i>
+      </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu mobile-only" id="mobile-menu" style="display:none; flex-direction:column; background:rgba(10, 13, 10, 0.98); backdrop-filter:blur(20px); border-top:1px solid rgba(0,255,82,0.1); padding:20px 24px;">
+      <a href="index.html" class="nav-link" style="padding:12px 0;">Home</a>
+      <a href="store.html" class="nav-link" style="padding:12px 0;">Store</a>
+      <a href="profile.html" class="nav-link active" style="padding:12px 0;">Profile</a>
+      
+      <div id="auth-container-mobile" style="margin-top: 16px;">
+        <a href="login.html" class="btn-primary" style="width:100%; display:flex; justify-content:center; align-items:center; gap:8px; padding:12px; border-radius:10px;">
+          <span>Login</span>
+          <i data-lucide="log-in" style="width:18px; height:18px;"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="dashboard-main">
+    
+    <div class="profile-header-card">
+      <img src="assets/img/logo.png" alt="Avatar" class="profile-avatar-lg" id="user-avatar-img">
+      <div class="profile-info">
+        <h1 id="user-profile-name">Loading...</h1>
+        <p id="user-email"></p>
+        <div class="chips"><span class="chip" id="user-discord-id"></span><span class="chip" id="user-orders-count"></span></div>
+      </div>
+    </div>
+
+    <div class="grid-section">
+      <div class="card-box">
+        <h2><i data-lucide="shopping-bag" style="color:var(--green-a); width:20px;height:20px;"></i> User Orders & Invoices</h2>
+        <div style="overflow-x:auto;">
+          <table class="data-table">
+            <thead><tr><th>Order ID</th><th>Product</th><th>Price</th><th>Status</th><th>Invoice</th></tr></thead>
+            <tbody id="user-orders-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card-box">
+        <h2><i data-lucide="life-buoy" style="color:var(--green-a); width:20px;height:20px;"></i> Contact Support</h2>
+        <p style="color:var(--text-muted); font-size:13px; margin-bottom:16px;">Open a support ticket and write your problem below.</p>
+        
+        <form id="support-ticket-form" onsubmit="submitTicket(event)">
+          <div class="form-group">
+            <label>Subject / Issue Title</label>
+            <input type="text" id="ticket-subject" class="form-control" placeholder="e.g. Didn't receive my code" required>
+          </div>
+          <div class="form-group">
+            <label>Describe Your Problem</label>
+            <textarea id="ticket-message" class="form-control" rows="4" placeholder="Write details about your problem..." required style="resize:none;"></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="width:100%;">
+            <i data-lucide="send" style="width:16px;height:16px;"></i> Submit Ticket
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div style="margin-top: 30px;">
+      <div class="discord-banner-box">
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <div style="width: 50px; height: 50px; border-radius: 14px; background: rgba(88, 101, 242, 0.2); display: flex; align-items: center; justify-content: center; color: #5865F2;">
+            <img src="https://cdn.simpleicons.org/discord/5865F2" alt="Discord" style="width: 28px; height: 28px;" />
+          </div>
+          <div>
+            <h3 style="color: #fff; font-weight: 800; font-size: 18px; margin-bottom: 4px;">Join Our Discord Community!</h3>
+            <p style="color: var(--text-muted); font-size: 13px; margin: 0;">Get instant updates, giveaways, and chat with other members.</p>
+          </div>
+        </div>
+        <a href="https://discord.gg/akJzbRqeK" target="_blank" rel="noopener noreferrer" class="discord-btn-pro">
+          <img src="https://cdn.simpleicons.org/discord/ffffff" alt="Discord" style="width: 18px; height: 18px;" />
+          <span>Join Discord Server</span>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px;">
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; margin-bottom: 48px;">
+        
+        <div>
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div class="server-logo-slot">🛒</div>
+            <span class="server-name" style="font-size: 20px; color: #fff;">Forest Store</span>
+          </div>
+          
+          <p style="color: #6b7280; font-size: 14px; line-height: 1.7; margin: 0 0 20px;">
+            Your premium digital marketplace for gaming and digital products. Instant delivery and 24/7 support.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="color: #fff; font-weight: 800; font-size: 15px; margin: 0 0 20px; position: relative; padding-bottom: 8px;">Quick Links</h4>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+            <li><a href="index.html" style="color: #6b7280; text-decoration: none;">• Home</a></li>
+            <li><a href="store.html" style="color: #6b7280; text-decoration: none;">• Store</a></li>
+            <li><a href="review.html" style="color: #6b7280; text-decoration: none;">• Reviews</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color: #fff; font-weight: 800; font-size: 15px; margin: 0 0 20px; position: relative; padding-bottom: 8px;">Support</h4>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+            <li><a href="faq.html" style="color: #6b7280; text-decoration: none;">• FAQ</a></li>
+            <li><a href="terms.html" style="color: #6b7280; text-decoration: none;">• Terms of Service</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color: #fff; font-weight: 800; font-size: 15px; margin: 0 0 20px; position: relative; padding-bottom: 8px;">Contact Us</h4>
+          <form action="https://formspree.io/f/myeznbro" method="POST" style="display: flex; flex-direction: column; gap: 10px;">
+            <input type="email" name="email" required placeholder="Enter your email" style="width: 100%; padding: 10px 12px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff; font-size: 13px; outline: none;" />
+            <textarea name="message" required placeholder="Enter your message" rows="2" style="width: 100%; padding: 10px 12px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff; font-size: 13px; outline: none; resize: none; font-family: inherit;"></textarea>
+            <button type="submit" style="width: 100%; background: var(--green-b); color: #0a0d0a; font-weight: 800; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 14px;">Send Message</button>
+          </form>
+        </div>
+
+      </div>
+
+      <div style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; font-size: 13px; color: #6b7280;">
+        <div>© <span id="year">2026</span> <strong style="color: #fff;">Forest Store</strong>. All rights reserved.</div>
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <span style="color: var(--green-a);">Online 24/7</span>
+          <span>• Instant Delivery</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <div id="invoice-modal" class="modal-overlay" aria-hidden="true">
+    <div class="invoice-card" role="dialog" aria-modal="true" aria-label="Invoice">
+      <button class="modal-close" id="inv-close" aria-label="Close">&times;</button>
+      <div id="invoice-body"></div>
+      <div class="invoice-actions">
+        <button type="button" class="btn-primary" id="inv-print"><i data-lucide="printer" style="width:16px;height:16px;"></i> Print</button>
+        <a class="btn-ghost" id="inv-download" download><i data-lucide="download" style="width:16px;height:16px;"></i> Download PDF</a>
+      </div>
+    </div>
+  </div>
+
+  <a href="https://discord.gg/akJzbRqeK" target="_blank" rel="noopener noreferrer" class="discord-fab" aria-label="Join our Discord">
+    <img src="https://cdn.simpleicons.org/discord/ffffff" alt="" style="width:20px;height:20px;"><span>Discord</span>
+  </a>
+
+  <script src="js/profile.js"></script>
+</body>
+</html>

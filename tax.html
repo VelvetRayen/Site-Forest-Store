@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tax Calculator - Professional Financial Tool</title>
+  <meta name="description" content="Calculate your income tax, deductions, and net take-home pay accurately and instantly with our advanced, user-friendly Tax Calculator.">
+
+  <meta property="og:title" content="Tax Calculator - Professional Financial Tool">
+  <meta property="og:description" content="Calculate your income tax, deductions, and net take-home pay accurately and instantly with our advanced, user-friendly Tax Calculator.">
+  <meta property="og:image" content="https://foreststore.netlify.app/assets/img/baner.png">
+  <meta property="og:url" content="https://foreststore.netlify.app/">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tax Calculator - Professional Financial Tool">
+  <meta name="twitter:description" content="Calculate your income tax, deductions, and net take-home pay accurately and instantly with our advanced, user-friendly Tax Calculator.">
+  <meta name="twitter:image" content="https://foreststore.netlify.app/assets/img/baner.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+<link rel="stylesheet" href="css/tax.css">
+<link rel="stylesheet" href="css/cart.css">
+<script src="js/auth.js"></script>
+<script src="js/cart.js"></script>
+</head>
+<body>
+
+  <canvas id="particles-canvas"></canvas>
+
+  <div id="loading-screen">
+    <div style="position:relative; margin-bottom:32px;">
+      <div class="load-ring spin-slow"></div>
+      <div style="width:96px; height:96px; display:flex; align-items:center; justify-content:center; position:relative; z-index:10;">
+        <div class="server-logo-slot" style="width:64px; height:64px; border-radius:9999px;">
+          <img src="assets/img/logo.png" alt="Forest Store Logo" style="width: 100%; height: 100%; object-fit: contain;">
+        </div>
+      </div>
+    </div>
+    <h1 class="server-name" style="font-size:26px; font-weight:900; color:#fff; margin:0 0 4px;">Forest Store</h1>
+    <p style="color:var(--green-a); font-size:14px; margin:0 0 32px;">Tax & Exchange Calculator</p>
+    <div class="load-bar-track">
+      <div class="load-bar-fill" id="load-bar-fill"></div>
+    </div>
+    <p style="color:rgba(0,255,82,.9); font-size:13px; margin-top:12px; font-family:monospace; font-weight: bold;" id="load-percent">0%</p>
+  </div>
+
+  <div id="site">
+
+    <header id="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="brand-link">
+          <div class="server-logo-slot">
+            <img src="assets/img/logo.png" alt="Forest Store Logo">
+          </div>
+          <span class="server-name">Forest Store</span>
+        </a>
+
+        <nav class="nav-links-wrapper desktop-only">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="terms.html" class="nav-link">Rules</a>
+          <a href="store.html" class="nav-link">Store</a>
+          <a href="review.html" class="nav-link">Reviews</a>
+          <a href="faq.html" class="nav-link">FAQ</a>
+        </nav>
+
+        <div class="desktop-only" style="display:flex; align-items:center; gap:14px;">
+          <a href="https://discord.gg/akJzbRqeK" class="discord-link btn-primary" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:8px; padding:10px 20px; border-radius:10px;">
+            <span>Join Now</span>
+            <i data-lucide="external-link" style="width:18px; height:18px;"></i>
+          </a>
+        </div>
+
+        <div class="mobile-only" style="display:flex; align-items:center; gap:12px;">
+          <button id="menu-btn" aria-label="Toggle Menu" style="background:none; border:none; color:#f3f4f6; cursor:pointer; padding:4px;">
+            <i data-lucide="menu" id="menu-icon" style="width:28px; height:28px;"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="mobile-menu mobile-only" id="mobile-menu" style="display:none; flex-direction:column; background:rgba(10, 13, 10, 0.98); backdrop-filter:blur(20px); border-top:1px solid rgba(0,255,82,0.1); padding:20px 24px; margin-top:14px;">
+        <a href="index.html" class="nav-link" style="padding:12px 0;">Home</a>
+        <a href="terms.html" class="nav-link" style="padding:12px 0;">Rules</a>
+        <a href="store.html" class="nav-link" style="padding:12px 0;">Store</a>
+        <a href="review.html" class="nav-link" style="padding:12px 0;">Reviews</a>
+        <a href="tax.html" class="nav-link active" style="padding:12px 0;">Tax</a>
+        <a href="faq.html" class="nav-link" style="padding:12px 0;">FAQ</a>
+        
+        <a href="https://discord.gg/akJzbRqeK" class="discord-link btn-primary" target="_blank" rel="noopener noreferrer" style="margin-top:16px; display:flex; justify-content:center; align-items:center; gap:8px; padding:12px; border-radius:10px;">
+          <span>Join Now</span>
+          <i data-lucide="external-link" style="width:18px; height:18px;"></i>
+        </a>
+      </div>
+    </header>
+
+    <section class="bg-grid" style="position:relative; padding-top:140px; padding-bottom:40px; text-align:center;">
+      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(21,128,61,.15), transparent, var(--bg));"></div>
+      
+      <div style="position:relative; z-index:10; max-width:1280px; margin:0 auto; padding:0 24px;">
+        <div class="badge-pill" style="margin-bottom:16px;">
+          <i data-lucide="calculator" style="width:14px; height:14px; display:inline-block; vertical-align:middle; stroke:var(--green-a); margin-right:6px;"></i>
+          Professional Calculation Hub
+        </div>
+
+        <h1 style="font-size:clamp(34px,5vw,56px); font-weight:900; color:#fff; margin:0 0 16px;">
+          Store <span class="text-gradient">Tax</span> & Fees System
+        </h1>
+
+        <p style="color:#9ca3af; font-size:clamp(15px,1.8vw,18px); max-width:650px; margin:0 auto 20px; line-height:1.7;">
+          Calculate your payment gateway fees instantly with absolute precision. Fast, sleek, and secure.
+        </p>
+      </div>
+    </section>
+
+    <section style="padding:20px 0 96px; position:relative;">
+      <div style="max-width:1280px; margin:0 auto; padding:0 24px;">
+        
+        <div class="card-hover" style="background: rgba(15, 20, 15, 0.75); border: 1px solid rgba(0, 255, 82, 0.2); border-radius: 24px; padding: 32px; backdrop-filter: blur(20px); box-shadow: 0 20px 40px rgba(0,0,0,0.6); max-width: 550px; margin: 0 auto;">
+          
+          <div style="margin-bottom: 24px;">
+            <label style="display: block; color: #9ca3af; font-size: 13px; font-weight: 600; margin-bottom: 12px;">Select Payment Method / طريقة الدفع</label>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;" id="methods-grid">
+              
+              <div onclick="selectMethod('d17')" class="method-card active" data-id="d17" style="background: rgba(0,255,82,0.08); border: 1px solid rgba(0,255,82,0.4); border-radius: 14px; padding: 16px 14px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; gap: 12px;">
+                <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(0,255,82,0.15); display: flex; align-items: center; justify-content: center; color: #00ff52; shrink: 0;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                </div>
+                <div>
+                  <h4 style="color: #fff; font-size: 14px; font-weight: 700; margin: 0;">D17</h4>
+                  <span style="color: #00ff52; font-size: 12px; font-weight: 600;">98% Tax</span>
+                </div>
+              </div>
+
+              <div onclick="selectMethod('binance')" class="method-card" data-id="binance" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 16px 14px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; gap: 12px;">
+                <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; color: #9ca3af; shrink: 0;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                </div>
+                <div>
+                  <h4 style="color: #fff; font-size: 14px; font-weight: 700; margin: 0;">Binance</h4>
+                  <span style="color: #9ca3af; font-size: 12px; font-weight: 600;">1 USDT = 3.6 TND</span>
+                </div>
+              </div>
+
+              <div onclick="selectMethod('probot')" class="method-card" data-id="probot" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 16px 14px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; gap: 12px;">
+                <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; color: #9ca3af; shrink: 0;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                </div>
+                <div>
+                  <h4 style="color: #fff; font-size: 14px; font-weight: 700; margin: 0;">Probot</h4>
+                  <span style="color: #9ca3af; font-size: 12px; font-weight: 600;">5.3% Fee</span>
+                </div>
+              </div>
+
+            </div>
+
+          <div id="calculator-body" class="animate-transition" style="margin-bottom: 20px;">
+            <label id="input-label" style="display: block; color: #9ca3af; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Enter Amount / أدخل المبلغ (DT)</label>
+            <div style="position: relative; display: flex; align-items: center;">
+              <input type="number" id="calc-amount" placeholder="0.00" oninput="calculate()" style="width: 100%; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 16px 20px; color: #fff; font-size: 24px; font-weight: 700; outline: none; transition: all 0.3s ease;" onfocus="this.style.borderColor='#00ff52'; this.style.boxShadow='0 0 15px rgba(0,255,82,0.2)';" onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='none';" />
+              <span id="input-unit" style="position: absolute; right: 20px; color: #6b7280; font-weight: 700; font-size: 16px;">DT</span>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px;">
+            <button onclick="setAmount(50)" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: #d1d5db; padding: 8px 14px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#00ff52'; this.style.color='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'; this.style.color='#d1d5db'">50</button>
+            <button onclick="setAmount(100)" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: #d1d5db; padding: 8px 14px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#00ff52'; this.style.color='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'; this.style.color='#d1d5db'">100</button>
+            <button onclick="setAmount(150)" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: #d1d5db; padding: 8px 14px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#00ff52'; this.style.color='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'; this.style.color='#d1d5db'">150</button>
+            <button onclick="setAmount(200)" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: #d1d5db; padding: 8px 14px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#00ff52'; this.style.color='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'; this.style.color='#d1d5db'">200</button>
+          </div>
+
+          <div style="background: linear-gradient(135deg, rgba(0,255,82,0.05), rgba(0,0,0,0.6)); border: 1px solid rgba(0,255,82,0.3); border-radius: 16px; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: inset 0 0 20px rgba(0,255,82,0.05);">
+            <div>
+              <span id="result-label" style="display: block; color: #9ca3af; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Total Tax Amount</span>
+              <span style="color: #fff; font-size: 14px; font-weight: 700;">Real-time calculation</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span id="result-output" style="font-size: 26px; font-weight: 900; background: linear-gradient(135deg, #00ff52, #26ef00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; transition: all 0.3s ease;">0.00 DT</span>
+              <button onclick="copyResult()" title="Copy Result" style="background: rgba(0,255,82,0.1); border: 1px solid rgba(0,255,82,0.3); color: #00ff52; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="quick-access-wrapper">
+        <div class="quick-access-menu" id="quick-menu">
+          <a href="index.html" class="quick-access-item"><i data-lucide="home" style="width:16px;height:16px;"></i> Home</a>
+          <a href="store.html" class="quick-access-item"><i data-lucide="shopping-bag" style="width:16px;height:16px;"></i> Store</a>
+          <a href="internet.html" class="quick-access-item"><i data-lucide="arrow-down-up" style="width:16px;height:16px;"></i> ForFaits</a>
+          <a href="terms.html" class="quick-access-item"><i data-lucide="scale" style="width:16px;height:16px;"></i> Rules</a>
+          
+        </div>
+        <button class="quick-access-btn" id="quick-btn" title="Quick Access">
+          <i data-lucide="zap" style="width:24px;height:24px;"></i>
+        </button>
+      </div>
+
+    </section>
+
+    <footer style="border-top: 1px solid rgba(0, 255, 82, 0.15); padding: 64px 0 32px; position: relative; color: #9ca3af; direction: ltr; text-align: left; background: rgba(5, 8, 5, 0.8);">
+      <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px;">
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; margin-bottom: 48px;">
+          <div style="grid-column: span 1.5;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+              <div class="server-logo-slot" style="width: 40px; height: 40px; border-radius: 10px;">
+                <img src="assets/img/logo.png" alt="Forest Store Logo">
+              </div>
+              <span class="server-name" style="font-weight: 900; font-size: 22px; color: #fff;">Forest Store</span>
+            </div>
+            <p style="color: #6b7280; font-size: 14px; line-height: 1.7; margin: 0 0 20px; max-width: 320px;">
+              Your premium digital marketplace for gaming and digital products. Instant delivery & secure transactions.
+            </p>
+          </div>
+
+          <div>
+            <h4 style="color: #fff; font-weight: 800; font-size: 15px; margin: 0 0 20px; position: relative; padding-bottom: 8px;">
+              Quick Links
+              <span style="position: absolute; bottom: 0; left: 0; width: 24px; height: 2px; background: var(--green-a);"></span>
+            </h4>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+              <li><a href="index.html" style="color: #6b7280; text-decoration: none;">• Home</a></li>
+              <li><a href="store.html" style="color: #6b7280; text-decoration: none;">• Store</a></li>
+              <li><a href="review.html" style="color: #6b7280; text-decoration: none;">• Reviews</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 style="color: #fff; font-weight: 800; font-size: 15px; margin: 0 0 20px; position: relative; padding-bottom: 8px;">
+              Support
+              <span style="position: absolute; bottom: 0; left: 0; width: 24px; height: 2px; background: var(--green-a);"></span>
+            </h4>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+              <li><a href="faq.html" style="color: #6b7280; text-decoration: none;">• FAQ</a></li>
+              <li><a href="terms.html" style="color: #6b7280; text-decoration: none;">• Terms of Service</a></li>
+              <li><a href="index.html#About" style="color: #6b7280; text-decoration: none;">• About Us</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 style="color: #fff; font-weight: 800; font-size: 15px; margin: 0 0 20px; position: relative; padding-bottom: 8px;">
+              Contact Us
+              <span style="position: absolute; bottom: 0; left: 0; width: 24px; height: 2px; background: var(--green-a);"></span>
+            </h4>
+            <form action="https://formspree.io/f/myeznbro" method="POST" style="display: flex; flex-direction: column; gap: 10px;">
+              <input type="email" name="email" required placeholder="Enter your email" style="width: 100%; padding: 10px 12px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff; font-size: 13px; outline: none;" />
+              <textarea name="message" required placeholder="Enter your message" rows="2" style="width: 100%; padding: 10px 12px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff; font-size: 13px; outline: none; resize: none;"></textarea>
+              <button type="submit" style="width: 100%; background: var(--green-b); color: #0a0d0a; font-weight: 800; border: none; padding: 8px; border-radius: 8px; cursor: pointer; font-size: 13px;">Send Message</button>
+            </form>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; font-size: 13px; color: #6b7280; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 24px;">
+          <div>© <span id="year">2026</span> <strong style="color: #fff;">Forest Store</strong>. All rights reserved.</div>
+          <div style="color: var(--green-a); display: flex; align-items: center; gap: 6px;">
+            <span style="width: 8px; height: 8px; background: var(--green-a); border-radius: 50%; display: inline-block; box-shadow: 0 0 8px var(--green-a);"></span> Online 24/7
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="js/tax.js"></script>
+
+  <div id="toast-notification">
+    <div class="toast-icon-box">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div class="toast-content">
+      <span class="toast-title">Successfully Copied</span>
+      <span class="toast-desc">The result has been copied to your clipboard</span>
+    </div>
+  </div>
+</body>
+</html>

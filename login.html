@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forest Store | Secure Discord Authentication</title>
+<meta name="description" content="Log in to Forest Store using Discord - The Premier Digital & Discord Solutions Provider.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+<link rel="stylesheet" href="css/login.css">
+<link rel="stylesheet" href="css/cart.css">
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<div id="loading-screen">
+  <div style="position:relative; margin-bottom:28px;">
+    <div class="load-ring spin-slow"></div>
+    <div style="width:86px; height:86px; display:flex; align-items:center; justify-content:center; position:relative; z-index:10;">
+      <div class="server-logo-slot" style="width:56px; height:56px; border-radius:9999px;"></div>
+    </div>
+  </div>
+  <h1 class="server-name" style="font-size:24px; font-weight:900; color:#fff; margin:0 0 4px;">Forest Store</h1>
+  <p style="color:var(--green-a); font-size:13px; margin:0 0 28px;">Digital Solutions & Services</p>
+  <div class="load-bar-track"><div class="load-bar-fill" id="load-bar-fill"></div></div>
+  <p style="color:rgba(0,255,82,.9); font-size:12px; margin-top:10px; font-family:monospace; font-weight: bold;" id="load-percent">0%</p>
+</div>
+
+<div id="site">
+
+  <header id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-link">
+        <div class="server-logo-slot">F</div>
+        <span class="server-name">Forest Store</span>
+      </a>
+
+      <nav class="nav-links-wrapper desktop-only">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="terms.html" class="nav-link">Rules</a>
+        <a href="store.html" class="nav-link">Store</a>
+        <a href="review.html" class="nav-link">Reviews</a>
+        <a href="faq.html" class="nav-link">FAQ</a>
+      </nav>
+
+      <div class="desktop-only" style="display:flex; align-items:center; gap:14px;">
+        <a href="https://discord.gg/akJzbRqeK" class="discord-link btn-primary" target="_blank" rel="noopener noreferrer">
+          <span>Join Now</span>
+          <i data-lucide="external-link" style="width:15px; height:15px;"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="auth-section bg-grid">
+    <div style="position:absolute; top:25%; left:50%; transform:translateX(-50%); width:280px; height:280px; background:rgba(88,101,242,0.12); border-radius:50%; filter:blur(110px); pointer-events:none;"></div>
+    <div style="position:absolute; bottom:15%; left:30%; width:200px; height:200px; background:rgba(0,255,82,0.08); border-radius:50%; filter:blur(90px); pointer-events:none;"></div>
+
+    <div class="auth-card fade-in-up">
+      
+      <div class="discord-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+        </svg>
+        <span>Discord Gateway OAuth2</span>
+      </div>
+
+      <div style="margin-bottom: 26px;">
+        <h2 style="font-size: 24px; font-weight: 900; color: #fff; margin: 0 0 8px; letter-spacing: -0.01em;">
+          Welcome to <span class="text-gradient">Forest Store</span>
+        </h2>
+        <p style="font-size: 13px; color: #9ca3af; margin: 0; line-height: 1.5;">
+          Authenticate safely with your Discord profile to manage orders and gain instant member rewards.
+        </p>
+      </div>
+
+      <button type="button" class="btn-discord" onclick="handleDiscordLogin()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+        </svg>
+        <span>Continue with Discord</span>
+      </button>
+
+      <div style="margin-top: 22px; font-size: 12px; color: #6b7280; display: flex; align-items: center; justify-content: center; gap: 6px;">
+        <i data-lucide="shield-check" style="width: 14px; height: 14px; color: var(--green-a);"></i> End-to-end encrypted session verification
+      </div>
+    </div>
+  </main>
+
+  <div id="toast">
+    <i data-lucide="check-circle-2" id="toast-icon" style="color:var(--green-a); width:22px; height:22px;"></i>
+    <div>
+      <div id="toast-title" style="font-weight: 800; font-size: 14px; color:#fff;">Success</div>
+      <div id="toast-desc" style="font-size: 12px; color:#9ca3af;">Operation completed successfully.</div>
+    </div>
+  </div>
+
+  <footer style="border-top: 1px solid rgba(0, 255, 82, 0.12); padding: 24px 0; text-align: center; color: #6b7280; font-size: 12px; background: rgba(4, 6, 4, 0.9);">
+    <div>© <span id="year">2026</span> <strong style="color: #fff;">Forest Store</strong>. All rights reserved.</div>
+  </footer>
+
+</div>
+
+<script src="js/auth.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/login.js"></script>
+
+</body>
+</html>

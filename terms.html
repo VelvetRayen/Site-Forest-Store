@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" id="html-root">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forest Store - Terms & Privacy Policy</title>
+  <meta name="description" content="Read our terms of service and privacy policy to understand how Forest Store protects your data and manages digital purchases.">
+
+  <meta property="og:title" content="Forest Store - Terms & Privacy Policy">
+  <meta property="og:description" content="Read our terms of service and privacy policy to understand how Forest Store protects your data and manages digital purchases.">
+  <meta property="og:image" content="https://foreststore.netlify.app/assets/img/baner.png">
+  <meta property="og:url" content="https://foreststore.netlify.app/terms">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+<link rel="stylesheet" href="css/terms.css">
+<link rel="stylesheet" href="css/cart.css">
+<script src="js/auth.js"></script>
+<script src="js/cart.js"></script>
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+
+<div id="site" style="position: relative; z-index: 2;">
+
+  <header id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-link">
+        <div class="server-logo-slot">
+          <img src="assets/img/logo.png" alt="Forest Store Logo">
+        </div>
+        <span class="server-name" data-en="Forest Store" data-ar="فورست ستور">Forest Store</span>
+      </a>
+
+      <nav class="nav-links-wrapper desktop-only">
+        <a href="index.html" class="nav-link" data-en="Home" data-ar="الرئيسية">Home</a>
+        <a href="terms.html" class="nav-link active" data-en="Rules" data-ar="القواعد">Rules</a>
+        <a href="store.html" class="nav-link" data-en="Store" data-ar="المتجر">Store</a>
+        <a href="review.html" class="nav-link" data-en="Reviews" data-ar="التقييمات">Reviews</a>
+        <a href="faq.html" class="nav-link" data-en="FAQ" data-ar="الأسئلة">FAQ</a>
+      </nav>
+
+      <div class="desktop-only" style="display:flex; align-items:center; gap:14px;">
+        <button id="lang-toggle-btn" class="lang-btn" onclick="toggleLanguage()">
+          <i data-lucide="globe" style="width:16px; height:16px;"></i>
+          <span id="lang-text">AR</span>
+        </button>
+      </div>
+
+      <div class="mobile-only" style="display:flex; align-items:center; gap:12px;">
+        <button id="lang-toggle-btn-m" class="lang-btn" onclick="toggleLanguage()">
+          <i data-lucide="globe" style="width:16px; height:16px;"></i>
+          <span id="lang-text-m">AR</span>
+        </button>
+        <button id="menu-btn" aria-label="Toggle Menu" style="background:none; border:none; color:#f3f4f6; cursor:pointer; padding:4px;">
+          <i data-lucide="menu" id="menu-icon" style="width:28px; height:28px;"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu mobile-only" id="mobile-menu" style="flex-direction:column; background:rgba(10, 13, 10, 0.98); backdrop-filter:blur(20px); border-top:1px solid rgba(0,255,82,0.1); padding:20px 24px; margin-top:14px;">
+      <a href="index.html" class="nav-link" data-en="Home" data-ar="الرئيسية" style="padding:12px 0;">Home</a>
+      <a href="terms.html" class="nav-link active" data-en="Rules" data-ar="القواعد" style="padding:12px 0;">Rules</a>
+      <a href="store.html" class="nav-link" data-en="Store" data-ar="المتجر" style="padding:12px 0;">Store</a>
+      <a href="review.html" class="nav-link" data-en="Reviews" data-ar="التقييمات" style="padding:12px 0;">Reviews</a>
+      <a href="faq.html" class="nav-link" data-en="FAQ" data-ar="الأسئلة" style="padding:12px 0;">FAQ</a>
+    </div>
+  </header>
+
+  <section class="bg-grid" style="padding: 140px 0 80px; min-height: 80vh;">
+    <div style="max-width: 900px; margin: 0 auto; padding: 0 24px;">
+      
+      <div style="text-align: center; margin-bottom: 48px;">
+        <div class="badge-pill" style="margin-bottom: 16px;">
+          <i data-lucide="clock" style="width:14px; height:14px;"></i>
+          <span data-en="Last Updated: October 2026" data-ar="آخر تحديث: أكتوبر 2026">Last Updated: October 2026</span>
+        </div>
+        <h1 style="font-size: clamp(32px, 5vw, 48px); font-weight: 900; color: #fff; margin: 0 0 12px;">
+          <span data-en="Store Rules &" data-ar="قواعد المتجر و">Store Rules &</span> 
+          <span class="text-gradient" data-en="Privacy Policy" data-ar="سياسة الخصوصية">Privacy Policy</span>
+        </h1>
+        <div class="divider-line"></div>
+        <p style="color: #9ca3af; font-size: 15px;" data-en="Official Guidelines & Data Protection Protocols" data-ar="الإرشادات الرسمية وبروتوكولات حماية البيانات">Official Guidelines & Data Protection Protocols</p>
+      </div>
+
+      <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 40px; flex-wrap: wrap;">
+        <a href="#terms-section" class="btn-primary" style="padding: 10px 24px;" data-en="Store Rules" data-ar="قواعد المتجر">Store Rules</a>
+        <a href="#privacy-section" class="btn-primary" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(0,255,82,0.3); box-shadow: none;" data-en="Privacy Policy" data-ar="سياسة الخصوصية">Privacy Policy</a>
+      </div>
+
+      <div id="terms-section" class="content-card">
+        <div class="card-header">
+          <div class="icon-box">
+            <i data-lucide="file-text" style="width: 22px; height: 22px;"></i>
+          </div>
+          <h2 style="font-size: 24px; font-weight: 800; color: #fff; margin: 0;" data-en="Store Rules & Guidelines" data-ar="قواعد وإرشادات المتجر">Store Rules & Guidelines</h2>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 20px; color: #9ca3af; font-size: 15px; line-height: 1.7;">
+          <div>
+            <h3 style="color: #fff; font-size: 17px; font-weight: 700; margin: 0 0 6px;" data-en="1. Welcome to Forest Store" data-ar="1. أهلاً بك في متجر فورست">1. Welcome to Forest Store</h3>
+            <p style="margin: 0;" data-en="By using our website or shop, you agree to follow our simple rules. If you don't agree with anything here, please feel free to leave the site." data-ar="باستخدامك لموقعنا أو متجرنا، فإنك توافق على اتباع قواعدنا البسيطة. إذا لم تكن توافق على أي شيء هنا، فلا تتردد في مغادرة الموقع.">By using our website or shop, you agree to follow our simple rules. If you don't agree with anything here, please feel free to leave the site.</p>
+          </div>
+
+          <div>
+            <h3 style="color: #fff; font-size: 17px; font-weight: 700; margin: 0 0 6px;" data-en="2. What We Offer" data-ar="2. ما نقدمه">2. What We Offer</h3>
+            <p style="margin: 0;" data-en="We provide digital gaming items, top-ups, and codes. We can update prices or change items anytime without prior notice." data-ar="نحن نقدم عناصر الألعاب الرقمية، وشحن الأرصدة، والأكواد. يمكننا تحديث الأسعار أو تغيير العناصر في أي وقت دون إشعار مسبق.">We provide digital gaming items, top-ups, and codes. We can update prices or change items anytime without prior notice.</p>
+          </div>
+
+          <div>
+            <h3 style="color: #fff; font-size: 17px; font-weight: 700; margin: 0 0 6px;" data-en="3. Your Account" data-ar="3. حسابك الشخصي">3. Your Account</h3>
+            <p style="margin: 0;" data-en="Keep your account password safe. You are fully responsible for anything that happens using your account details." data-ar="حافظ على الأمان التام لكلمة مرور حسابك. أنت المسؤول الوحيد عن أي نشاط يتم باستخدام تفاصيل حسابك.">Keep your account password safe. You are fully responsible for anything that happens using your account details.</p>
+          </div>
+
+          <div>
+            <h3 style="color: #fff; font-size: 17px; font-weight: 700; margin: 0 0 6px;" data-en="4. Buying & Paying" data-ar="4. الشراء والدفع">4. Buying & Paying</h3>
+            <p style="margin: 0;" data-en="All purchases depend on stock availability. We have the right to cancel any suspicious order and refund the money if needed." data-ar="تعتمد جميع عمليات الشراء على توفر المخزون. لدينا الحق في إلغاء أي طلب مشكوك فيه واسترداد الأموال إذا لزم الأمر.">All purchases depend on stock availability. We have the right to cancel any suspicious order and refund the money if needed.</p>
+          </div>
+
+          <div>
+            <h3 style="color: #fff; font-size: 17px; font-weight: 700; margin: 0 0 6px;" data-en="5. Getting Your Products" data-ar="5. استلام منتجاتك">5. Getting Your Products</h3>
+            <p style="margin: 0;" data-en="Digital codes or top-ups arrive right after payment. Once a code is shown to you, we cannot take it back unless it is broken or doesn't work." data-ar="تصل الأكواد الرقمية أو الشحنات فوراً بعد الدفع. بمجرد عرض الكود لك، لا يمكننا استرجاعه إلا إذا كان تالفاً أو لا يعمل.">Digital codes or top-ups arrive right after payment. Once a code is shown to you, we cannot take it back unless it is broken or doesn't work.</p>
+          </div>
+
+          <div>
+            <h3 style="color: #fff; font-size: 17px; font-weight: 700; margin: 0 0 6px;" data-en="6. Using Platform Rules" data-ar="6. قواعد المنصات الأساسية">6. Using Platform Rules</h3>
+            <p style="margin: 0;" data-en="Items you buy must also follow the rules of original game companies (like Steam, PlayStation, or Xbox)." data-ar="يجب أن تتوافق العناصر التي تشتريها مع قواعد الشركات المالكة للألعاب الأصلية (مثل ستيم، بلايستيشن، أو إكس بوكس).">Items you buy must also follow the rules of original game companies (like Steam, PlayStation, or Xbox).</p>
+          </div>
+
+          <div>
+            <h3 style="color: #fff; font-size: 17px; font-weight: 700; margin: 0 0 6px;" data-en="7. What You Cannot Do" data-ar="7. المحظورات">7. What You Cannot Do</h3>
+            <p style="margin: 0;" data-en="No hacking, no fake payments, no spamming support, and no reselling our items without asking us first." data-ar="يُمنع منعاً باتاً الاختراق، المدفوعات الوهمية، إزعاج الدعم الفني، أو إعادة بيع منتجاتنا دون إذن مسبق.">No hacking, no fake payments, no spamming support, and no reselling our items without asking us first.</p>
+          </div>
+
+          <div>
+            <h3 style="color: #fff; font-size: 17px; font-weight: 700; margin: 0 0 6px;" data-en="8. Website Design" data-ar="8. تصميم الموقع">8. Website Design</h3>
+            <p style="margin: 0;" data-en="All logos, text, and styles on Forest Store belong to us. Please do not copy them for other websites." data-ar="جميع الشعارات والنصوص والتصاميم الخاصة بمتجر فورست ملك لنا حصرياً. يرجى عدم نسخها لمواقع أخرى.">All logos, text, and styles on Forest Store belong to us. Please do not copy them for other websites.</p>
+          </div>
+
+          <div>
+            <h3 style="color: #fff; font-size: 17px; font-weight: 700; margin: 0 0 6px;" data-en="9. Need Help?" data-ar="9. هل تحتاج للمساعدة؟">9. Need Help?</h3>
+            <p style="margin: 0;" data-en="If you have any questions about these rules, drop us a message at" data-ar="إذا كان لديك أي استفسار بخصوص هذه القواعد، تواصل معنا عبر البريد الإلكتروني:">If you have any questions about these rules, drop us a message at</p> <strong style="color: var(--green-a);">foreststore@gmail.com</strong>.
+          </div>
+        </div>
+      </div>
+
+      <div id="privacy-section" class="content-card">
+        <div class="card-header">
+          <div class="icon-box">
+            <i data-lucide="shield-check" style="width: 22px; height: 22px;"></i>
+          </div>
+          <h2 style="font-size: 24px; font-weight: 800; color: #fff; margin: 0;" data-en="Privacy Policy (Forest Services)" data-ar="سياسة الخصوصية (خدمات فورست)">Privacy Policy (Forest Services)</h2>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 20px; color: #9ca3af; font-size: 15px; line-height: 1.7;">
+          <div>
+            <h3 style="color: #fff; font-size: 17px; font-weight: 700; margin: 0 0 6px;" data-en="1. Information Protection" data-ar="1. حماية المعلومات">1. Information Protection</h3>
+            <p style="margin: 0;" data-en="We respect your privacy. Any information you provide within the server or store will remain confidential and will not be shared with any third party." data-ar="نحن نحترم خصوصيتك. أي معلومات تقدمها داخل السيرفر أو المتجر تظل سرية تماماً ولن يتم مشاركتها مع أي طرف ثالث.">We respect your privacy. Any information you provide within the server or store will remain confidential and will not be shared with any third party.</p>
+          </div>
+
+          <div>
+            <h3 style="color: #fff; font-size: 17px; font-weight: 700; margin: 0 0 6px;" data-en="2. Data Usage" data-ar="2. استخدام البيانات">2. Data Usage</h3>
+            <p style="margin: 0;" data-en="The information collected is used only to provide services and improve the user experience within the server and store." data-ar="تُستخدم المعلومات التي يتم جمعها فقط لتقديم الخدمات وتحسين تجربة المستخدم داخل السيرفر والمتجر.">The information collected is used only to provide services and improve the user experience within the server and store.</p>
+          </div>
+
+          <div>
+            <h3 style="color: #fff; font-size: 17px; font-weight: 700; margin: 0 0 6px;" data-en="3. No Misuse of Data" data-ar="3. عدم سوء استخدام البيانات">3. No Misuse of Data</h3>
+            <p style="margin: 0;" data-en="Your data will not be used for purposes unrelated to the services provided by Forest Services and Forest Store." data-ar="لن يتم استخدام بياناتك لأغراض غير مرتبطة بالخدمات التي تقدمها خدمات ومتجر فورست.">Your data will not be used for purposes unrelated to the services provided by Forest Services and Forest Store.</p>
+          </div>
+
+          <div>
+            <h3 style="color: #fff; font-size: 17px; font-weight: 700; margin: 0 0 6px;" data-en="4. Security" data-ar="4. الأمان">4. Security</h3>
+            <p style="margin: 0;" data-en="We strive to keep user information secure, but users are responsible for protecting their own accounts and credentials." data-ar="نسعى جاهدين للحفاظ على أمان معلومات المستخدمين، لكن يتحمل المستخدمون مسؤولية حماية حساباتهم وكلمات مرورهم.">We strive to keep user information secure, but users are responsible for protecting their own accounts and credentials.</p>
+          </div>
+
+          <div>
+            <h3 style="color: #fff; font-size: 17px; font-weight: 700; margin: 0 0 6px;" data-en="5. Cookies & Browsing" data-ar="5. ملفات تعريف الارتباط والتصفح">5. Cookies & Browsing</h3>
+            <p style="margin: 0;" data-en="Our site uses basic cookies to save your settings and make your shopping experience smooth and fast." data-ar="يستخدم موقعنا ملفات تعريف ارتباط أساسية لحفظ إعداداتك وجعل تجربة التسوق سلسة وسريعة.">Our site uses basic cookies to save your settings and make your shopping experience smooth and fast.</p>
+          </div>
+
+          <div>
+            <h3 style="color: #fff; font-size: 17px; font-weight: 700; margin: 0 0 6px;" data-en="6. Age Limit" data-ar="6. الحد العمري">6. Age Limit</h3>
+            <p style="margin: 0;" data-en="Our store is meant for users who are 18 years old or older. We don't intentionally collect info from children." data-ar="موقعنا مخصص للمستخدمين الذين تبلغ أعمارهم 18 عاماً أو أكثر. نحن لا نجمع معلومات الأطفال عن قصد.">Our store is meant for users who are 18 years old or older. We don't intentionally collect info from children.</p>
+          </div>
+
+          <div>
+            <h3 style="color: #fff; font-size: 17px; font-weight: 700; margin: 0 0 6px;" data-en="7. Got Questions?" data-ar="7. لديك أسئلة؟">7. Got Questions?</h3>
+            <p style="margin: 0;" data-en="If you want to know more about your privacy or clear your data, contact us anytime at" data-ar="إذا كنت تريد معرفة المزيد حول خصوصيتك أو مسح بياناتك، تواصل معنا في أي وقت على">If you want to know more about your privacy or clear your data, contact us anytime at</p> <strong style="color: var(--green-a);">foreststore@gmail.com</strong>.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="quick-access-wrapper">
+      <div class="quick-access-menu" id="quick-menu">
+        <a href="index.html" class="quick-access-item"><i data-lucide="home" style="width:16px;height:16px;"></i> <span data-en="Home" data-ar="الرئيسية">Home</span></a>
+        <a href="store.html" class="quick-access-item"><i data-lucide="shopping-bag" style="width:16px;height:16px;"></i> <span data-en="Store" data-ar="المتجر">Store</span></a>
+        <a href="internet.html" class="quick-access-item"><i data-lucide="arrow-down-up" style="width:16px;height:16px;"></i> <span data-en="ForFaits" data-ar="العروض">ForFaits</span></a>
+        <a href="tax.html" class="quick-access-item"><i data-lucide="calculator" style="width:16px;height:16px;"></i> <span data-en="Tax" data-ar="الضريبة">Tax</span></a>
+      </div>
+      <button class="quick-access-btn" id="quick-btn" title="Quick Access">
+        <i data-lucide="zap" style="width:24px;height:24px;"></i>
+      </button>
+    </div>
+  </section>
+
+  <footer style="border-top: 1px solid rgba(0, 255, 82, 0.15); padding: 64px 0 32px; background: rgba(5, 8, 5, 0.85);">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px;">
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; margin-bottom: 48px;">
+        
+        <div>
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div class="server-logo-slot" style="width: 40px; height: 40px; border-radius: 10px;">
+              <img src="assets/img/logo.png" alt="Forest Store Logo">
+            </div>
+            <span class="server-name" style="font-weight: 900; font-size: 22px; color: #fff;" data-en="Forest Store" data-ar="فورست ستور">Forest Store</span>
+          </div>
+          <p style="color: #6b7280; font-size: 14px; line-height: 1.7; margin: 0 0 20px; max-width: 320px;" data-en="Your premium digital marketplace for gaming and digital products. We provide instant delivery, secure payments, and 24/7 customer support." data-ar="متجرك الرقمي المميز للألعاب والمنتجات الرقمية. نقدم تسليماً فورياً، مدفوعات آمنة، ودعماً فنياً على مدار الساعة.">
+            Your premium digital marketplace for gaming and digital products. We provide instant delivery, secure payments, and 24/7 customer support.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="color: #fff; font-weight: 800; font-size: 15px; margin: 0 0 20px; position: relative; padding-bottom: 8px;">
+            Quick Links
+            <span style="position: absolute; bottom: 0; left: 0; width: 24px; height: 2px; background: var(--green-a);"></span>
+          </h4>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+            <li><a href="index.html" style="color: #6b7280; text-decoration: none;">• Home</a></li>
+            <li><a href="store.html" style="color: #6b7280; text-decoration: none;">• Store</a></li>
+            <li><a href="review.html" style="color: #6b7280; text-decoration: none;">• Reviews</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color: #fff; font-weight: 800; font-size: 15px; margin: 0 0 20px; position: relative; padding-bottom: 8px;">
+            Support
+            <span style="position: absolute; bottom: 0; left: 0; width: 24px; height: 2px; background: var(--green-a);"></span>
+          </h4>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 14px;">
+            <li><a href="faq.html" style="color: #6b7280; text-decoration: none;">• FAQ</a></li>
+            <li><a href="terms.html" style="color: #6b7280; text-decoration: none;">• Terms of Service</a></li>
+            <li><a href="index.html#About" style="color: #6b7280; text-decoration: none;">• About Us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color: #fff; font-weight: 800; font-size: 15px; margin: 0 0 20px; position: relative; padding-bottom: 8px;">
+            <span data-en="Contact Us" data-ar="اتصل بنا">Contact Us</span>
+            <span style="position: absolute; bottom: 0; left: 0; width: 24px; height: 2px; background: var(--green-a);"></span>
+          </h4>
+          <p style="color: #6b7280; font-size: 13px; margin: 0 0 16px;" data-en="Have a question? Send us a message." data-ar="لديك سؤال؟ أرسل لنا رسالة.">Have a question? Send us a message.</p>
+          
+          <form action="https://formspree.io/f/myeznbro" method="POST" style="display: flex; flex-direction: column; gap: 10px;">
+            <input type="email" name="email" class="form-input" required placeholder="Enter your email" data-en-placeholder="Enter your email" data-ar-placeholder="أدخل بريدك الإلكتروني" />
+            <textarea name="message" class="form-input" required placeholder="Enter your message" data-en-placeholder="Enter your message" data-ar-placeholder="أدخل رسالتك" rows="2" style="resize: none;"></textarea>
+            <button type="submit" class="btn-primary" style="width: 100%; height: 38px; border-radius: 8px;" data-en="Send Message" data-ar="إرسال الرسالة">Send Message</button>
+          </form>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom-flex" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; font-size: 13px; color: #6b7280;">
+        <div>© <span id="year">2026</span> <strong style="color: #fff;" data-en="Forest Store" data-ar="فورست ستور">Forest Store</strong>. <span data-en="All rights reserved." data-ar="جميع الحقوق محفوظة.">All rights reserved.</span></div>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap;">
+          <span style="color: var(--green-a);" data-en="Online 24/7" data-ar="متواجدون 24/7">Online 24/7</span>
+          <span data-en="• Instant Delivery" data-ar="• تسليم فوري">• Instant Delivery</span>
+          <span data-en="• Secure Payment" data-ar="• دفع آمن">• Secure Payment</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+</div>
+
+<script src="js/terms.js"></script>
+</body>
+</html>
