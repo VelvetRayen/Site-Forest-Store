@@ -123,6 +123,32 @@
     bump();
   }
 
+  // Re-price the cart from the live catalog; drops items that no longer exist or are out of stock.
+  // Returns true when anything changed.
+  function sync(products) {
+    if (!Array.isArray(products) || !products.length) return false;
+    var changed = false;
+    items = items.filter(function (item) {
+      var product = products.filter(function (p) { return p.id === item.id; })[0];
+      if (!product || !product.inStock) { changed = true; return false; }
+      var variant = null;
+      if (product.variants && product.variants.length) {
+        variant = product.variants.filter(function (v) { return v.title === item.variant; })[0];
+        if (!variant) { changed = true; return false; }
+      }
+      var parsed = parsePrice(variant ? variant.price : product.price);
+      if (parsed.amount !== item.amount || parsed.currency !== item.currency) {
+        item.amount = parsed.amount;
+        item.currency = parsed.currency;
+        item.price = formatAmount(parsed.amount, parsed.currency);
+        changed = true;
+      }
+      return true;
+    });
+    if (changed) commit();
+    return changed;
+  }
+
   function setQty(key, qty) {
     var item = items.filter(function (i) { return i.key === key; })[0];
     if (!item) return;
@@ -385,6 +411,7 @@
     add: add,
     remove: remove,
     setQty: setQty,
+    sync: sync,
     clear: clear,
     getItems: getItems,
     count: count,

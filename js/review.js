@@ -57,90 +57,64 @@ function animateParticles() {
 }
 animateParticles();
 
-const DEFAULT_REVIEWS = [
-  {
-    name: 'Karim',
-    role: 'Verified Buyer',
-    product: 'Free Fire Diamonds',
-    text: 'Service Top! Chrit Tak Tak Diamond free fire',
-    rating: 5,
-    date: '4 days ago'
-  },
-  {
-    name: 'Nafa33',
-    role: 'Server Owner',
-    product: 'Custom Bot & Server Setup',
-    text: 'Berasmi Chabeb S7i7 5dhe Wa9et chwaya server ama brojla haja tayara ynadhmoulk kol chy enty barka twlha b server bt3k maykhaloulk chy bch taemlou enty',
-    rating: 4,
-    date: '5 days ago'
-  },
-  {
-    name: 'Dex',
-    role: 'Verified Buyer',
-    product: 'Netflix',
-    text: 'Awel Mara net3amel M3ahom chrit compte netflix jwhom bhy',
-    rating: 5,
-    date: '6 days ago'
-  },
-  {
-    name: '! ☈ | SIGMA',
-    role: 'Gamer',
-    product: 'PUBG UC Pack',
-    text: 'ثقة وسرعة في التسليم، شحنت pubg ',
-    rating: 5,
-    date: '1 week ago'
-  },
-  {
-    name: 'Mouhamed ali',
-    role: 'Client • Gamer',
-    product: 'Free Fire Diamonds',
-    text: 'Top  ',
-    rating: 5,
-    date: 'Today'
-  },
-  {
-    name: 'Ahmed B.',
-    role: 'Client • Server Owner',
-    product: 'Custom Discord Bot',
-    text: 'chrit bot systeme ',
-    rating: 4,
-    date: 'Yesterday'
-  },
-  {
-    name: 'Sami T.',
-    role: 'Client • VIP Member',
-    product: 'Spotify Premium',
-    text: 'mou9aratan b nes lokhra aswemhom bhya',
-    rating: 5,
-    date: '3 days ago'
-  }
-];
+let allReviews = [];
+let reviewsError = false;
 
-function getStoredReviews() {
-  const stored = localStorage.getItem('forest_store_reviews.v2');
-  if (stored) {
-    try { return JSON.parse(stored); } catch(e) { return DEFAULT_REVIEWS; }
+function timeAgo(value) {
+  const t = new Date(value).getTime();
+  if (!t) return 'Recently';
+  const days = Math.floor((Date.now() - t) / 86400000);
+  if (days < 1) return 'Today';
+  if (days === 1) return 'Yesterday';
+  if (days < 30) return days + ' days ago';
+  return new Date(t).toLocaleDateString();
+}
+
+async function loadReviews() {
+  try {
+    const res = await Auth.request('/api/reviews');
+    if (!res.ok || !Array.isArray(res.data)) throw new Error('bad response');
+    allReviews = res.data;
+    reviewsError = false;
+  } catch (e) {
+    reviewsError = true;
   }
-  localStorage.setItem('forest_store_reviews.v2', JSON.stringify(DEFAULT_REVIEWS));
-  return DEFAULT_REVIEWS;
+  renderReviews();
+}
+
+const REVIEWS_PER_PAGE = 6;
+let reviewPage = 1;
+
+function esc(value) {
+  return String(value == null ? '' : value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
 function renderReviews() {
-  const reviews = getStoredReviews();
+  const reviews = allReviews;
   const container = document.getElementById('reviews-container');
   document.getElementById('review-count').textContent = reviews.length;
+  if (!reviews.length) {
+    container.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:#9ca3af; padding:40px 0;">' +
+      (reviewsError ? 'Could not load reviews. The server may be waking up, please refresh in a moment.' : 'No reviews yet. Be the first to share your experience!') + '</p>';
+    renderReviewPagination(1);
+    return;
+  }
 
-  container.innerHTML = reviews.map(r => `
+  const totalPages = Math.max(1, Math.ceil(reviews.length / REVIEWS_PER_PAGE));
+  reviewPage = Math.min(Math.max(1, reviewPage), totalPages);
+  const pageItems = reviews.slice((reviewPage - 1) * REVIEWS_PER_PAGE, reviewPage * REVIEWS_PER_PAGE);
+
+  container.innerHTML = pageItems.map(r => `
     <div class="card-hover" style="background:rgba(255,255,255,.02); border:1px solid rgba(0,255,82,.2); border-radius:18px; padding:22px; display:flex; flex-direction:column; justify-content:space-between;">
       <div>
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
           <div style="display:flex; align-items:center; gap:12px;">
             <div style="width:40px; height:40px; border-radius:12px; fill:var(--green-a); background:linear-gradient(135deg, var(--green-a), var(--green-c)); display:flex; align-items:center; justify-content:center; color:#000; font-weight:900; font-size:16px;">
-              ${r.name.charAt(0).toUpperCase()}
+              ${esc(r.name.charAt(0).toUpperCase())}
             </div>
             <div>
-              <h4 style="color:#fff; font-size:15px; font-weight:800; margin:0;">${r.name}</h4>
-              <span style="color:var(--green-a); font-size:11px; font-weight:700;">${r.role}</span>
+              <h4 style="color:#fff; font-size:15px; font-weight:800; margin:0;">${esc(r.name)}</h4>
+              <span style="color:var(--green-a); font-size:11px; font-weight:700;">${esc(r.role)}</span>
             </div>
           </div>
           <span style="color:#ffc107; font-size:14px; font-weight:bold;">${'★'.repeat(r.rating)}</span>
@@ -148,21 +122,62 @@ function renderReviews() {
 
         <div style="background:rgba(0,255,82,.05); border:1px solid rgba(0,255,82,.1); padding:6px 12px; border-radius:8px; display:inline-block; margin-bottom:12px;">
           <span style="color:#9ca3af; font-size:11px;">Purchased: </span>
-          <strong style="color:#fff; font-size:12px;">${r.product}</strong>
+          <strong style="color:#fff; font-size:12px;">${esc(r.product)}</strong>
         </div>
 
-        <p style="color:#d1d5db; font-size:13.5px; line-height:1.6; margin:0 0 12px;">"${r.text}"</p>
+        <p style="color:#d1d5db; font-size:13.5px; line-height:1.6; margin:0 0 12px;">"${esc(r.text)}"</p>
       </div>
 
       <div style="border-top:1px solid rgba(255,255,255,.05); padding-top:10px; display:flex; justify-content:space-between; align-items:center; font-size:11px; color:#6b7280;">
         <span><i data-lucide="check-circle-2" style="width:12px; height:12px; color:var(--green-a); display:inline;"></i> Verified Buyer</span>
-        <span>${r.date || 'Recently'}</span>
+        <span>${esc(timeAgo(r.date))}</span>
       </div>
     </div>
   `).join('');
 
+  renderReviewPagination(totalPages);
   if (window.lucide) lucide.createIcons();
 }
+
+function pageNumbers(total, current) {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+  const pages = [1];
+  const start = Math.max(2, current - 1);
+  const end = Math.min(total - 1, current + 1);
+  if (start > 2) pages.push('…');
+  for (let i = start; i <= end; i++) pages.push(i);
+  if (end < total - 1) pages.push('…');
+  pages.push(total);
+  return pages;
+}
+
+function renderReviewPagination(totalPages) {
+  const nav = document.getElementById('reviews-pagination');
+  if (totalPages <= 1) {
+    nav.innerHTML = '';
+    return;
+  }
+  const numbers = pageNumbers(totalPages, reviewPage).map(n => n === '…'
+    ? '<span class="page-gap">…</span>'
+    : `<button type="button" class="page-btn${n === reviewPage ? ' active' : ''}" data-page="${n}"${n === reviewPage ? ' aria-current="page"' : ''}>${n}</button>`
+  ).join('');
+  nav.innerHTML =
+    `<button type="button" class="page-btn page-btn-wide" data-page="${reviewPage - 1}"${reviewPage === 1 ? ' disabled' : ''}>&laquo; Prev</button>` +
+    numbers +
+    `<button type="button" class="page-btn page-btn-wide" data-page="${reviewPage + 1}"${reviewPage === totalPages ? ' disabled' : ''}>Next &raquo;</button>`;
+}
+
+function changeReviewPage(page) {
+  reviewPage = page;
+  renderReviews();
+  document.getElementById('reviews-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+document.getElementById('reviews-pagination').addEventListener('click', e => {
+  const btn = e.target.closest('.page-btn');
+  if (!btn || btn.disabled) return;
+  changeReviewPage(parseInt(btn.getAttribute('data-page'), 10));
+});
 
 let currentSelectedStars = 5;
 const starIcons = document.querySelectorAll('#star-selector i');
@@ -180,35 +195,66 @@ starIcons.forEach(star => {
   });
 });
 
-function submitNewReview(e) {
+function fillReviewerName() {
+  const input = document.getElementById('rev-name');
+  const user = Auth.getUser();
+  input.value = user ? user.name : '';
+}
+
+fillReviewerName();
+
+async function submitNewReview(e) {
   e.preventDefault();
 
-  const name = document.getElementById('rev-name').value.trim();
-  const role = document.getElementById('rev-role').value;
-  const product = document.getElementById('rev-product').value.trim();
+  const user = Auth.getUser();
+  if (!user) {
+    showToast('Authentication Required', 'Please log in with Discord to write a review.');
+    return;
+  }
+  const product = document.getElementById('rev-product').value;
   const text = document.getElementById('rev-text').value.trim();
+  if (!product || !text) return;
 
-  if(!name || !product || !text) return;
-
-  const newRev = {
-    name: name,
-    role: role,
-    product: product,
-    text: text,
-    rating: currentSelectedStars,
-    date: "Just now"
-  };
-
-  const reviews = getStoredReviews();
-  reviews.unshift(newRev);
-  localStorage.setItem('forest_store_reviews.v2', JSON.stringify(reviews));
+  let res;
+  try {
+    res = await Auth.request('/api/reviews', { method: 'POST', body: { product, text, rating: currentSelectedStars } });
+  } catch (err) {
+    showToast('Server unreachable', 'Your review was not sent. Please try again in a moment.');
+    return;
+  }
+  if (!res.ok) {
+    showToast('Review not sent', res.data.error || 'Please try again.');
+    return;
+  }
 
   document.getElementById('review-form').reset();
   currentSelectedStars = 5;
   starIcons.forEach(s => s.style.color = '#ffc107');
+  fillReviewerName();
 
-  renderReviews();
-  alert("Takyiimak tzad fel page b-naja7! Chokran 3la rayek.");
+  reviewPage = 1;
+  await loadReviews();
+  showToast("Thank you for your feedback!", "Your review has been published successfully.");
+}
+
+let toastTimer = null;
+function showToast(title, description) {
+  let toast = document.getElementById('review-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'review-toast';
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
+    toast.innerHTML =
+      '<div class="review-toast-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>' +
+      '<div><span class="review-toast-title"></span><span class="review-toast-desc"></span></div>';
+    document.body.appendChild(toast);
+  }
+  toast.querySelector('.review-toast-title').textContent = title;
+  toast.querySelector('.review-toast-desc').textContent = description;
+  requestAnimationFrame(() => toast.classList.add('show'));
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 5000);
 }
 
 let progress = 0;
@@ -228,7 +274,7 @@ const loadInterval = setInterval(() => {
       setTimeout(() => {
         ls.style.display = 'none';
         document.getElementById('site').style.display = 'block';
-        renderReviews();
+        loadReviews();
         Auth.render();
       }, 400);
     }, 200);
@@ -279,4 +325,3 @@ if (menuBtn) {
 }
 
 document.getElementById('year').textContent = new Date().getFullYear();
-

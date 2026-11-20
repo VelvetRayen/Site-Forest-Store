@@ -2,6 +2,7 @@
   'use strict';
 
   var KEY = 'forest_user';
+  var TOKEN_KEY = 'forest_token';
   var LEGACY_KEYS = ['currentUser', 'discord_user', 'logged_in_user'];
   var NEXT_KEY = 'forest_return_to';
   var DEFAULT_AVATAR = 'assets/img/logo.png';
@@ -21,7 +22,50 @@
              email: u.email || '', discordId: id, avatar: avatar };
   }
 
+  function getToken() {
+    try {
+      var token = localStorage.getItem(TOKEN_KEY);
+      if (!token) return null;
+      var payload = JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+      if (payload.exp && payload.exp * 1000 < Date.now()) { clearSession(); return null; }
+      return token;
+    } catch (e) { return null; }
+  }
+
+  function clearSession() {
+    localStorage.removeItem(KEY);
+    localStorage.removeItem(TOKEN_KEY);
+  }
+
+  function setSession(token, user) {
+    localStorage.setItem(TOKEN_KEY, token);
+    localStorage.setItem(KEY, JSON.stringify(normalize(user)));
+  }
+
+  function apiBase() {
+    return ((window.FOREST_CONFIG && window.FOREST_CONFIG.apiBaseUrl) || '').replace(/\/+$/, '');
+  }
+
+  // Authenticated API call. Resolves { ok, status, data }; rejects only on network failure.
+  function request(path, options) {
+    options = options || {};
+    var headers = { 'Content-Type': 'application/json' };
+    var token = getToken();
+    if (token) headers.Authorization = 'Bearer ' + token;
+    return fetch(apiBase() + path, {
+      method: options.method || 'GET',
+      headers: headers,
+      body: options.body ? JSON.stringify(options.body) : undefined
+    }).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (data) {
+        if (res.status === 401 && token) { clearSession(); }
+        return { ok: res.ok, status: res.status, data: data };
+      });
+    });
+  }
+
   function getUser() {
+    if (!getToken()) return null;
     try {
       var raw = localStorage.getItem(KEY);
       if (raw) return normalize(JSON.parse(raw));
@@ -36,10 +80,9 @@
     return null;
   }
 
-  function setUser(user) { localStorage.setItem(KEY, JSON.stringify(normalize(user))); }
-
   function logout() {
     localStorage.removeItem(KEY);
+    localStorage.removeItem(TOKEN_KEY);
     LEGACY_KEYS.forEach(function (k) { localStorage.removeItem(k); });
     location.reload();
   }
@@ -180,10 +223,11 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ready); else ready();
 
   window.Auth = {
-    getUser: getUser, setUser: setUser, isLoggedIn: function () { return !!getUser(); },
+    getUser: getUser, getToken: getToken, setSession: setSession, request: request,
+    isLoggedIn: function () { return !!getUser(); },
     logout: logout, loginUrl: loginUrl, rememberNext: rememberNext, consumeNext: consumeNext,
     render: function () { apply(true); }
   };
 
-  window.addEventListener('storage', function (e) { if (e.key === KEY) location.reload(); });
+  window.addEventListener('storage', function (e) { if (e.key === KEY || e.key === TOKEN_KEY) location.reload(); });
 })();

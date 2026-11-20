@@ -57,448 +57,57 @@ function animateParticles() {
 }
 animateParticles();
 
-const PRODUCTS = [
-  {
-    id: 'bot-custom',
-    title: 'Custom Discord Bot',
-    category: 'discord',
-    subCategory: 'server',
-    price: '$15.00',
-    badge: 'HOT',
-    inStock: true,
-    image: 'https://www.vibebot.gg/blog/how-to-make-a-discord-bot.webp',
-    icon: 'bot',
-    desc: 'Advanced automated moderation, ticket system, custom slash commands, and economy features tailored to your server.',
-    features: ['Custom Slash Commands', 'Ticket & Support System', 'Dashboard Integration', '24/7 Uptime Included']
-  },
-  {
-    id: 'discord-nitro',
-    title: 'Discord Nitro Boost',
-    category: 'discord',
-    subCategory: 'profile',
-    price: '$4.99',
-    badge: 'BEST SELLER',
-    inStock: true,
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4lvjBkqvcmMIByMWGNfj_pv2PFiIGuCSZVRSYV_Susw&s=10',
-    icon: 'zap',
-    desc: 'Upgrade your Discord experience with custom emojis, bigger uploads, HD streaming, and server boosts tailored for your profile.',
-    features: ['Global Custom Emojis', '500MB File Uploads', 'HD Video Streaming', 'Includes Server Boosts']
-  },
-  {
-    id: 'server-setup',
-    title: 'Full Server Setup & Design',
-    category: 'discord',
-    subCategory: 'server',
-    price: '$20.00',
-    badge: 'POPULAR',
-    inStock: true,
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTix0kCEg2O4B279QASR9zOaX65KJMmrbREMLSMVD2Z5Q&s',
-    icon: 'layout',
-    desc: 'Complete high-end aesthetic server build, clean channel structure, automated permissions, roles, and security bots.',
-    features: ['Aesthetic Layout & Emojis', 'Role Hierarchy & Permissions', 'Security Anti-Nuke System', 'Automated Welcome Message']
-  },
-  {
-    id: 'discord-aged-accounts',
-    title: 'Aged Discord Accounts (2016-2020)',
-    category: 'discord',
-    subCategory: 'profile',
-    price: '$3.99',
-    badge: 'TRUSTED',
-    inStock: false,
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTix0kCEg2O4B279QASR9zOaX65KJMmrbREMLSMVD2Z5Q&s',
-    icon: 'shield',
-    desc: 'Old verified Discord accounts ranging from 2016 to 2020, perfect for high-trust server participation and avoiding automated filters.',
-    features: ['Aged Years (2016-2020)', 'Email Verified', 'Phone Unlinked / Clean', 'Instant Delivery']
-  },
-  {
-    id: 'discord-nitro-gift',
-    title: 'Discord Nitro Gift Link',
-    category: 'discord',
-    subCategory: 'profile',
-    price: '$4.99',
-    badge: 'POPULAR',
-    inStock: true,
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4lvjBkqvcmMIByMWGNfj_pv2PFiIGuCSZVRSYV_Susw&s=10',
-    icon: 'zap',
-    desc: 'Full Discord Nitro subscription link with all premium perks including custom emojis, HD streaming, and 500MB uploads.',
-    features: ['Full Nitro Perks', 'Gift Link Activation', 'Safe & Secure', 'Instant Delivery']
-  },
-  {
-    id: 'server-boosts-direct',
-    title: 'Direct Server Boosts',
-    category: 'discord',
-    subCategory: 'server',
-    price: '$2.50',
-    badge: 'BEST VALUE',
-    inStock: true,
-    image: 'https://gocdkeys.fr/assets/thumbnails/discord-server-boost-pc-cd-key-2.webp',
-    icon: 'rocket',
-    desc: 'High-quality server boosts delivered directly to your Discord community to unlock premium level perks instantly.',
-    features: ['Unlock Level 3 Perks', 'Custom Vanity URL Ready', 'Stable & Safe Boosts', 'Fast Execution']
-  },
-  {
-    id: 'discord-profile-effects',
-    title: 'Discord Profile Effects & Decoration',
-    category: 'discord',
-    subCategory: 'profile',
-    price: '$3.50',
-    badge: 'NEW',
-    inStock: true,
-    image: 'https://gocdkeys.fr/assets/thumbnails/discord-server-boost-pc-cd-key-2.webp',
-    icon: 'sparkles',
-    desc: 'Exclusive animated profile effects and avatar decorations to make your Discord profile stand out from the crowd.',
-    features: ['Animated Profile Effects', 'Unique Decorations', 'Compatible with All Themes', 'Instant Setup']
-  },
-  {
-    id: 'bot-hosting',
-    title: '24/7 Discord Bot Hosting',
-    category: 'discord',
-    subCategory: 'server',
-    price: '$3.50',
-    badge: 'NEW',
-    inStock: true,
-    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80',
-    icon: 'server',
-    desc: 'High-performance Node.js / Python bot hosting with 99.9% uptime, web panel control, and low latency.',
-    features: ['99.9% High Availability', 'Node.js & Python Support', 'Custom Web Control Panel', 'Auto-Restart & DDoS Shield']
-  },
+// The catalog (prices + stock) lives in the database and is edited from admin.html.
+const CATALOG_CACHE_KEY = 'forest_catalog_cache';
+let PRODUCTS = cachedCatalog();
 
-  {
-    id: 'tiktok-coins',
-    title: 'TikTok Coins Recharge',
-    category: 'app',
-    price: '$5.00',
-    badge: 'POPULAR',
-    inStock: true,
-    image: 'https://www.redsocial.com/wp-content/uploads/2024/10/tiktok-coins-calculator-768x596.webp',
-    icon: 'video',
-    desc: 'Instant recharge for TikTok coins to support your favorite creators, send live gifts, and boost your channel visibility safely.',
-    features: ['Instant Delivery', 'Secure Direct Top-up', 'Support All Regions', '24/7 Live Assistance']
-  },
-  {
-    id: 'usdt-crypto',
-    title: 'USDT Crypto Exchange',
-    category: 'app',
-    price: '$10.00',
-    badge: 'FAST',
-    inStock: false,
-    image: 'https://images.unsplash.com/photo-1621416894569-0f39ed31d247?auto=format&fit=crop&w=600&q=80',
-    icon: 'coins',
-    desc: 'Fast and secure USDT cryptocurrency transfer and exchange services with low transaction fees and absolute reliability.',
-    features: ['Low Transfer Fees', 'TRC20 & ERC20 Networks', 'Instant Wallet Deposit', 'Secure Transaction']
-  },
-  {
-    id: 'azar-gems',
-    title: 'Azar Gems Recharge',
-    category: 'app',
-    price: '$4.99',
-    badge: 'HOT',
-    inStock: true,
-    image: 'https://mir-s3-cdn-cf.behance.net/projects/404/b945d2199138373.Y3JvcCw4OTXsNzAxLDUzLDA.png',
-    icon: 'gem',
-    desc: 'Top up Azar gems instantly to unlock premium discovery features, special filters, and enhance your live video chatting experience.',
-    features: ['Instant Account Credit', 'Safe & Official Top-up', 'Unlock Premium Filters', 'Global Server Support']
-  },
+function cachedCatalog() {
+  try {
+    const cached = JSON.parse(localStorage.getItem(CATALOG_CACHE_KEY));
+    return Array.isArray(cached) ? cached : [];
+  } catch (e) { return []; }
+}
 
-  {
-    id: 'youtube-ad',
-    title: 'YouTube Sponsored Ad',
-    category: 'media',
-    price: '$20.00',
-    badge: 'POPULAR',
-    inStock: true,
-    image: 'https://swello.com/fr/blog/wp-content/uploads/2020/09/youtube-ads.png',
-    icon: 'video',
-    desc: 'Reach your target audience effectively with professional YouTube sponsored advertisements and high conversion rates.',
-    features: ['Targeted Audience Reach', 'High Conversion Rates', 'Performance Analytics', 'Campaign Optimization']
-  },
-  {
-    id: 'facebook-ad',
-    title: 'Facebook Sponsored Ad',
-    category: 'media',
-    price: '$18.00',
-    badge: 'POPULAR',
-    inStock: true,
-    image: 'https://bs-uploads.toptal.io/blackfish-uploads/components/blog_post_page/8251604/cover_image/retina_1708x683/Untitled-4ed518aa15e0be5015ec7c56b85ae0d2.png',
-    icon: 'share-2',
-    desc: 'Boost your brand awareness and generate leads with targeted ad campaigns tailored for Facebook users.',
-    features: ['Precise Demographic Targeting', 'Custom Ad Creatives', 'Lead Generation Setup', 'Detailed ROI Reports']
-  },
-  {
-    id: 'website-traffic',
-    title: 'Website Traffic',
-    category: 'media',
-    price: '$10.00',
-    badge: 'NEW',
-    inStock: false,
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80',
-    icon: 'globe',
-    desc: 'Drive real, organic visitors to your website to increase engagement, visibility, and search rankings.',
-    features: ['Real Visitor Traffic', 'Geo-Targeting Options', 'Safe & Reliable Delivery', 'Analytics Tracking']
-  },
-  {
-    id: 'badge-verification',
-    title: 'Badge Verification',
-    category: 'media',
-    price: '$25.00',
-    badge: 'PRO',
-    inStock: false,
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTs5DB_n_MOtjjFIa9iR-ScM5gezPQ2IQJAC9Jpm6kvxswY1139X1sRq-0&s=10',
-    icon: 'check-circle',
-    desc: 'Enhance your profile credibility and establish authenticity with professional badge verification assistance.',
-    features: ['Enhanced Credibility', 'Authenticity Proof', 'Priority Support', 'Secure Process']
-  },
-  {
-    id: 'chatgpt-premium',
-    title: 'ChatGPT Premium',
-    category: 'media',
-    price: '$12.00',
-    badge: 'HOT',
-    inStock: true,
-    image: 'https://www.internetmatters.org/wp-content/uploads/2025/06/Chat-GPT-logo.webp',
-    icon: 'cpu',
-    desc: 'Unlock advanced AI capabilities, faster response times, and priority access to cutting-edge features.',
-    features: ['Faster Response Times', 'Advanced AI Models', 'Priority Feature Access', 'Enhanced Productivity']
-  },
-  {
-    id: 'canva-pro',
-    title: 'Canva Pro',
-    category: 'media',
-    price: '$8.00',
-    badge: 'BEST VALUE',
-    inStock: true,
-    image: 'https://www.cdiscount.com/pdt2/4/2/5/1/700x700/aabdj49425/rw/canva-pro--logiciel-de.jpg',
-    icon: 'image',
-    desc: 'Access premium design tools, millions of stock assets, background remover, and brand kits for your projects.',
-    features: ['Millions of Premium Assets', 'One-Click Background Remover', 'Brand Kit Management', 'Unlimited Storage']
-  },
-  {
-    id: 'social-insta',
-    title: 'Instagram Growth Pack',
-    category: 'media',
-    price: '$3.00',
-    badge: 'POPULAR',
-    inStock: true,
-    image: 'https://martech.org/wp-content/uploads/2016/12/instagram-logo-gradient3-ss-1920.jpg',
-    icon: 'instagram',
-    desc: 'Boost your Instagram presence with high-quality followers, story and shorts views, and engagement likes.',
-    features: ['Real Active Followers', 'Story & Shorts Views', 'Instant Engagement Likes', 'Safe & Secure Delivery']
-  },
-  {
-    id: 'social-youtube',
-    title: 'YouTube Creator Bundle',
-    category: 'media',
-    price: '$5.00',
-    badge: 'HOT',
-    inStock: true,
-    image: 'https://www.presse-citron.net/app/uploads/2020/02/youtube.jpg',
-    icon: 'youtube',
-    desc: 'Expand your channel reach with organic subscribers, high-retention video and shorts views, and likes.',
-    features: ['Subscribers Growth', 'Video & Shorts Views', 'High-Retention Watchtime', 'Likes for Videos & Shorts']
-  },
-  {
-    id: 'social-kick',
-    title: 'Kick Stream Accelerator',
-    category: 'media',
-    price: '$4.00',
-    badge: 'NEW',
-    inStock: true,
-    image: 'https://media.es.wired.com/photos/63f416e5bc755c9a2a93f708/3:2/w_3000,h_2000,c_limit/kick%20streaming%20plataforma.jpg',
-    icon: 'video',
-    desc: 'Supercharge your Kick channel with targeted followers and views for your clips, videos, and live streams.',
-    features: ['Channel Followers', 'Clip & Video Views', 'Live Stream Viewers', 'High Engagement Rate']
-  },
-  {
-    id: 'social-twitch',
-    title: 'Twitch Channel Booster',
-    category: 'media',
-    price: '$4.50',
-    badge: 'TRENDING',
-    inStock: true,
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_92bRiQE-0tH06JTbh8oPLGTAjCtthE--KYIYii_fKGYsR-4ifFyZEl1r&s=10',
-    icon: 'tv',
-    desc: 'Grow your Twitch community with loyal followers and reliable views for your clips and live broadcasts.',
-    features: ['Followers Growth', 'Clip Views & Highlights', 'Live Stream Viewers', 'Organic Appearance']
-  },
-  {
-    id: 'social-bigo',
-    title: 'Bigo Live Stream Views',
-    category: 'media',
-    price: '$6.00',
-    badge: 'SPECIAL',
-    inStock: true,
-    image: 'https://viraltalent.co.uk/wp-content/uploads/2023/09/BIGO-LIVE.png',
-    icon: 'radio',
-    desc: 'Enhance your Bigo Live broadcast visibility with flexible live stream view durations ranging from 5 to 360 minutes.',
-    features: ['Custom Duration (5m - 360m)', 'Active Live Viewers', 'Boost Algorithmic Reach', 'Instant Start']
-  },
-  {
-    id: 'social-linkedin',
-    title: 'LinkedIn Premium Business',
-    category: 'media',
-    price: '$12.00',
-    badge: 'PRO',
-    inStock: true,
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu58iPeDkX-wEP_aMFU_Y6sWVsA_VSASMY-SK8Xa7M5eOdrZwDqE95WIfr&s=10',
-    icon: 'briefcase',
-    desc: 'Unlock powerful networking tools and business features with a 6-month LinkedIn Premium Business subscription.',
-    features: ['6 Months Full Access', 'InMail Credits Included', 'Who Viewed Your Profile', 'Advanced Business Insights']
-  },
+function applyCatalog(list) {
+  PRODUCTS = list;
+  try { localStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(list)); } catch (e) {}
+  const changed = Cart.sync(PRODUCTS);
+  if (changed) showToast('🛒 Cart updated', 'Some prices or availability changed, please review your cart.');
+}
 
-  {
-    id: 'ff-diamonds',
-    title: 'Free Fire Diamonds',
-    category: 'gaming',
-    price: '$5.00',
-    badge: 'BEST SELLER',
-    inStock: true,
-    image: 'https://livecards.net/i/51956.jpeg?v=0',
-    icon: 'gem',
-    desc: 'Instant ID top-up for Garena Free Fire diamonds directly into your account with 100% security.',
-    features: ['Instant Direct ID Top-up', '100% Safe & Guaranteed', 'Bonus Diamonds Included', 'Global / MENA Supported']
-  },
-  {
-    id: 'recharge-pubg',
-    title: 'PUBG Mobile UC',
-    category: 'gaming',
-    price: 'From $3.00',
-    badge: 'BEST VALUE',
-    inStock: true,
-    image: 'https://amazing.tn/uploads/products/2026/06/be977f44-bf32-4849-aca9-e992d6aa85c0.jpg',
-    icon: 'gamepad-2',
-    desc: 'Get your PUBG Mobile Unknown Cash (UC) instantly to unlock Royale Pass, weapon skins, and crates.',
-    features: ['Direct Player ID Transfer', 'Safe & Legal Method', 'Instant Delivery', 'Bonus UC on Selected Packs']
-  },
-  {
-    id: 'recharge-efootball',
-    title: 'eFootball Coins',
-    category: 'gaming',
-    price: 'From $2.50',
-    badge: 'HOT',
-    inStock: true,
-    image: 'https://cdn.epinium.net/v2/epinium/foxepin.net/Category/44deb788-35a3-435f-84d9-5c41712ffeeb/eFootball%20Coin-logo.webp',
-    icon: 'dribbble',
-    desc: 'Top up eFootball coins to sign epic players, build your dream squad, and dominate the matches.',
-    features: ['Fast Account Crediting', 'Secure Transaction', 'Best Market Rates', 'All Platforms Supported']
-  },
-  {
-    id: 'recharge-bloodstrike',
-    title: 'Blood Strike Gold',
-    category: 'gaming',
-    price: 'From $2.00',
-    badge: 'NEW',
-    inStock: true,
-    image: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3199170/eeab00314314192f57bbdf91b91f8b871f890ce5/capsule_616x353.jpg?t=1788924245',
-    icon: 'crosshair',
-    desc: 'Recharge Blood Strike gold instantly to purchase operators, weapons, and battle passes.',
-    features: ['Instant In-Game Delivery', 'Secure & Fast', 'Direct ID Recharge', '24/7 Availability']
-  },
-  {
-    id: 'recharge-roblox',
-    title: 'Roblox Robux',
-    category: 'gaming',
-    price: 'From $4.99',
-    badge: 'TRENDING',
-    inStock: true,
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-fWlmX2KRTZfBUnbkbhm98gKLdLtPxmdAaxI3DupU55XHUyPtSx2Kyj4&s=10',
-    icon: 'box',
-    desc: 'Get Roblox Robux to customize your avatar, buy game passes, and unlock exclusive items in your favorite games.',
-    features: ['Instant Code / Transfer', 'Safe Methods', 'All Amounts Available', 'Official Gift Cards & Direct']
-  },
-  {
-    id: 'gta-key',
-    title: 'GTA V Premium Edition Key',
-    category: 'gaming',
-    price: '$14.00',
-    badge: null,
-    inStock: true,
-    image: 'https://thumb.wikimedia.org/wikipedia/fr/thumb/d/d5/Grand_Theft_Auto_V_Logo.svg/1280px-Grand_Theft_Auto_V_Logo.svg.png?utm_source=fr.wikipedia.org&utm_campaign=index&utm_content=thumbnail',
-    icon: 'key',
-    desc: 'Official digital license code for GTA V including Criminal Enterprise Starter Pack for Rockstar / PC.',
-    features: ['Global Digital Code', 'Full GTA Online Access', '$1,000,000 In-game Cash', 'Instant Delivery']
-  },
-
-  {
-    id: 'netflix-sub',
-    title: 'Premium Netflix Subscription',
-    category: 'subs',
-    price: '$4.00',
-    badge: 'NEW',
-    inStock: true,
-    image: 'https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?auto=format&fit=crop&w=600&q=80',
-    icon: 'tv',
-    desc: '4K Ultra HD private screen Netflix membership with full warranty and uninterrupted stream access.',
-    variants: [
-      { title: '1 Month Basic', price: '16 TND', originalPrice: '20 TND' },
-      { title: '1 Month Standard', price: '32 TND', originalPrice: '40 TND' },
-      { title: '1 Month Premium', price: '39 TND', originalPrice: '50 TND' }
-    ],
-    features: ['4K UHD Quality', 'Full Duration Warranty', 'Private Screen Profile', 'Instant Login Details']
-  },
-  {
-    id: 'spotify-sub',
-    title: 'Spotify Premium (1 Year)',
-    category: 'subs',
-    price: '$12.00',
-    badge: 'BEST SELLER',
-    inStock: true,
-    image: 'https://sm.pcmag.com/t/pcmag_me/review/s/spotify/spotify_wc7u.1200.png',
-    icon: 'music',
-    desc: 'Enjoy ad-free music playback, unlimited offline downloads, and high-fidelity audio on your personal account.',
-    features: ['Personal Account Upgrade', 'No Advertisements', 'Offline Song Downloads', '12 Months Guaranteed']
-  },
-  {
-    id: 'shahid-vip-sub',
-    title: 'Shahid VIP Premium',
-    category: 'subs',
-    price: '15 TND',
-    badge: 'POPULAR',
-    inStock: true,
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1pQAOtuMXC-xUmwhHKk6XtVN-w5wzJd4Opo7OHXG3nWqnWE-NKDXtDjfY&s=10',
-    icon: 'tv-2',
-    desc: 'Accès illimité aux contenus exclusifs Shahid VIP, séries arabes, films et chaînes en direct sans publicité.',
-    variants: [
-      { title: '1 Mois VIP', price: '15 TND', originalPrice: '20 TND' },
-      { title: '3 Mois VIP', price: '38 TND', originalPrice: '50 TND' },
-      { title: '12 Mois VIP', price: '110 TND', originalPrice: '140 TND' }
-    ],
-    features: ['Full HD / 4K Stream', 'Sans Publicité', 'Garantie Totale', 'Livraison Immédiate']
-  },
-  {
-    id: 'prime-video-sub',
-    title: 'Amazon Prime Video',
-    category: 'subs',
-    price: '12 TND',
-    badge: 'HOT',
-    inStock: true,
-    image: 'https://m.media-amazon.com/images/G/01/primevideo/seo/primevideo-seo-logo.png',
-    icon: 'film',
-    desc: 'Profitez de films exclusifs, séries Amazon Originals et de contenus en streaming haute qualité avec garantie.',
-    variants: [
-      { title: '1 Mois Privé', price: '12 TND', originalPrice: '18 TND' },
-      { title: '6 Mois Privé', price: '55 TND', originalPrice: '80 TND' },
-      { title: '12 Mois Privé', price: '95 TND', originalPrice: '130 TND' }
-    ],
-    features: ['Qualité 4K Ultra HD', 'Compte Personnel / Profil', 'Téléchargement Hors Ligne', 'Garantie Complète']
-  },
-  {
-    id: 'crunchyroll-sub',
-    title: 'Crunchyroll Mega Fan',
-    category: 'subs',
-    price: '10 TND',
-    badge: 'ANIME',
-    inStock: true,
-    image: 'https://images.g2a.com/300x400/1x1x1/crunchyroll-premium-mega-fan-12-months-crunchyroll-key-global-i10000271997007/7068b74fc76b4b3a9e913205',
-    icon: 'sparkles',
-    desc: 'Regardez tous vos animes préférés en simulcast juste après le Japon, en HD/4K et sans aucune publicité.',
-    variants: [
-      { title: '1 Mois Fan', price: '10 TND', originalPrice: '15 TND' },
-      { title: '1 Mois Mega Fan', price: '16 TND', originalPrice: '22 TND' },
-      { title: '12 Mois Mega Fan', price: '90 TND', originalPrice: '120 TND' }
-    ],
-    features: ['Streaming Sans Pubs', 'Accès Simulcast (1h après le Japon)', 'Visionnage Hors Ligne', 'Garantie Période Entière']
+async function fetchCatalog() {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 6000);
+  try {
+    const base = ((window.FOREST_CONFIG && window.FOREST_CONFIG.apiBaseUrl) || '').replace(/\/+$/, '');
+    const res = await fetch(base + '/api/products', { signal: controller.signal });
+    const data = await res.json();
+    if (!res.ok || !Array.isArray(data) || !data.length) return null;
+    return data;
+  } catch (e) {
+    return null;
+  } finally {
+    clearTimeout(timer);
   }
-];
+}
+
+async function loadCatalog() {
+  const fresh = await fetchCatalog();
+  if (fresh) { applyCatalog(fresh); return; }
+  PRODUCTS = cachedCatalog();
+  let tries = 0;
+  const retry = setInterval(async () => {
+    tries += 1;
+    const data = await fetchCatalog();
+    if (data) {
+      clearInterval(retry);
+      applyCatalog(data);
+      renderProducts();
+    } else if (tries >= 20) {
+      clearInterval(retry);
+    }
+  }, 8000);
+}
 
 let currentPage = 1;
 let currentCategory = 'all';
@@ -528,6 +137,10 @@ function getFilteredProducts() {
 
 function renderProducts() {
   const container = document.getElementById('products-grid');
+  if (!PRODUCTS.length) {
+    container.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:#9ca3af; padding:60px 0;">Loading products… the server may be waking up, this can take up to a minute.</p>';
+    return;
+  }
   const noProds = document.getElementById('no-products');
   const filtered = getFilteredProducts();
 
@@ -887,17 +500,16 @@ modal.addEventListener('click', (e) => {
   if (e.target === modal) modal.classList.remove('active');
 });
 
-const ORDERS_KEY = 'forest_admin_orders';
+const INVOICES_KEY = 'forest_invoices';
 const INVOICE_LINES_Y = [384, 353, 322];
 
 function selectedItems() {
   if (checkoutMode === 'cart') {
-    return Cart.getItems().map(i => ({ title: i.title, variant: i.variant, qty: i.qty, amount: i.amount, currency: i.currency }));
+    return Cart.getItems().map(i => ({ id: i.id, variant: i.variant, qty: i.qty }));
   }
   const checked = document.querySelector('input[name="product_variant"]:checked');
   const variant = checked ? currentSelectedProduct.variants.find(v => v.title === checked.value) : null;
-  const parsed = Cart.parsePrice(variant ? variant.price : currentSelectedProduct.price);
-  return [{ title: currentSelectedProduct.title, variant: variant ? variant.title : '', qty: 1, amount: parsed.amount, currency: parsed.currency }];
+  return [{ id: currentSelectedProduct.id, variant: variant ? variant.title : '', qty: 1 }];
 }
 
 function describeItem(i) {
@@ -972,33 +584,14 @@ function blobToDataUrl(blob) {
   });
 }
 
-function storeOrder(order, factureData) {
-  const summary = order.items.map(describeItem).join(', ');
-  const record = {
-    orderId: order.orderId,
-    username: order.invoiceUsername,
-    discordId: order.invoiceDiscordId,
-    userId: order.customer.userId,
-    numero: order.customer.phone,
-    email: order.customer.email,
-    title: summary,
-    price: order.total,
-    product: `${summary} - ${order.total}`,
-    items: order.items,
-    total: order.total,
-    payment: order.payment,
-    date: order.date,
-    factureData
-  };
-  let orders = [];
-  try { orders = JSON.parse(localStorage.getItem(ORDERS_KEY)) || []; } catch (err) {}
-  orders.push(record);
-  try {
-    localStorage.setItem(ORDERS_KEY, JSON.stringify(orders));
-  } catch (err) {
-    delete record.factureData;
-    try { localStorage.setItem(ORDERS_KEY, JSON.stringify(orders)); } catch (err2) {}
-  }
+// Keep the generated PDF of the 10 latest orders in this browser so profile.html can re-download it.
+function cacheInvoice(order, factureData) {
+  let cache = {};
+  try { cache = JSON.parse(localStorage.getItem(INVOICES_KEY)) || {}; } catch (err) {}
+  cache[order.orderId] = { pdf: factureData, invoiceUsername: order.invoiceUsername, invoiceDiscordId: order.invoiceDiscordId };
+  const ids = Object.keys(cache);
+  ids.slice(0, Math.max(0, ids.length - 10)).forEach(id => delete cache[id]);
+  try { localStorage.setItem(INVOICES_KEY, JSON.stringify(cache)); } catch (err) {}
 }
 
 async function handleOrderSubmit(e) {
@@ -1006,64 +599,76 @@ async function handleOrderSubmit(e) {
   if (!requireLogin()) return;
   if (checkoutMode === 'cart' ? !Cart.count() : !currentSelectedProduct) return;
 
+  const submitBtn = document.getElementById('submit-order-btn');
+  if (submitBtn && submitBtn.disabled) return;
   const usernameInput = document.getElementById('discord-username');
   const idInput = document.getElementById('discord-id');
   const typedUsername = usernameInput ? usernameInput.value.trim() : '';
   const typedId = idInput ? idInput.value.trim() : '';
   const user = Auth.getUser();
-
-  const items = selectedItems().map(i => ({
-    title: i.title,
-    variant: i.variant,
-    qty: i.qty,
-    amount: i.amount,
-    currency: i.currency,
-    price: Cart.formatAmount(i.amount, i.currency),
-    lineTotal: Cart.formatAmount(i.amount * i.qty, i.currency)
-  }));
-
-  const order = {
-    orderId: '#ORD-' + Math.floor(100000 + Math.random() * 900000),
-    date: new Date().toLocaleString(),
-    payment: document.querySelector('input[name="payment"]:checked').value,
-    items,
-    total: Cart.totalLabel(items),
-    invoiceUsername: typedUsername || 'Client_' + Math.floor(Math.random() * 9000 + 1000),
-    invoiceDiscordId: typedId || 'UID_' + Math.floor(Math.random() * 900000 + 100000),
-    customer: {
-      name: user ? user.name : '',
-      userId: user ? user.discordId : '',
-      discordUsername: typedUsername,
-      discordId: typedId,
-      email: document.getElementById('user-email').value,
-      phone: document.getElementById('customer-numero').value
-    }
+  const payment = document.querySelector('input[name="payment"]:checked').value;
+  const customer = {
+    discordUsername: typedUsername,
+    discordId: typedId,
+    email: document.getElementById('user-email').value,
+    phone: document.getElementById('customer-numero').value
   };
 
+  if (submitBtn) submitBtn.disabled = true;
+  showToast('Processing...', 'Sending your order...');
+
+  // The server prices the order from its own catalog; we only send ids, options and quantities.
+  let res;
   try {
-    showToast("Processing...", "Your personal invoice is being prepared and downloaded...");
+    res = await Auth.request('/api/orders', { method: 'POST', body: { items: selectedItems(), payment, customer } });
+  } catch (err) {
+    if (submitBtn) submitBtn.disabled = false;
+    showToast('Server unreachable', 'Nothing was sent. The server may be waking up, please try again in a moment.');
+    return;
+  }
+  if (submitBtn) submitBtn.disabled = false;
 
+  if (!res.ok) {
+    if (res.status === 401 || res.status === 403) {
+      showToast('🔒 Session problem', res.data.error || 'Please log in again.');
+      setTimeout(() => { location.href = Auth.loginUrl(); }, 1800);
+    } else {
+      showToast('Order not sent', res.data.error || 'Please check your order and try again.');
+      loadCatalog().then(renderProducts);
+    }
+    return;
+  }
+
+  const saved = res.data.order;
+  const order = {
+    orderId: saved.orderId,
+    date: new Date(saved.date).toLocaleString(),
+    payment: saved.payment,
+    items: saved.items,
+    total: saved.total,
+    invoiceUsername: typedUsername || (user && user.username) || 'Client',
+    invoiceDiscordId: typedId || (user && user.discordId) || '-',
+    customer
+  };
+
+  if (checkoutMode === 'cart') Cart.clear();
+  modal.classList.remove('active');
+
+  try {
     const blob = await buildInvoice(order);
-    storeOrder(order, await blobToDataUrl(blob));
-
+    cacheInvoice(order, await blobToDataUrl(blob));
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
     link.download = `Facture_${order.invoiceDiscordId}.pdf`;
     link.click();
-
-    OrderNotifier.send(order);
-    if (checkoutMode === 'cart') Cart.clear();
-
-    modal.classList.remove('active');
-    showCompletionOptions(order);
-
   } catch (error) {
-    alert("An error occurred while generating the invoice: Ensure that the file 'assets/docs/facture.pdf' exists in the same site folder, then try again.");
+    showToast('Order received', `Order ${order.orderId} was saved, but the PDF invoice could not be generated. Contact us with your order ID.`);
   }
+  showCompletionOptions(order);
 }
 
 function showCompletionOptions(order) {
-  const storePhone = "+21625310421";
+  const storePhone = FOREST_CONFIG.whatsappNumber.replace(/\D/g, '');
   const userId = order.orderId;
   const product = order.items.map(describeItem).join(", ");
   const price = order.total;
@@ -1072,7 +677,7 @@ function showCompletionOptions(order) {
   const messageText = `مرحباً Forest Store، لقد قمت بطلب:\n- المنتج: ${product}\n- السعر: ${price}\n- الدفع: ${payment}\n- رقم الهاتف: ${numero}\n- معرف الطلب: ${userId}\n\n(لقد قمت بتحميل الفاتورة وسأقوم بإرسالها لكم هنا لإتمام الشراء).`;
   const encodedMessage = encodeURIComponent(messageText);
   const whatsappUrl = `https://wa.me/${storePhone}?text=${encodedMessage}`;
-  const discordUrl = "https://discord.gg/akJzbRqeK";
+  const discordUrl = FOREST_CONFIG.discordInvite;
 
   const finishHtml = `
     <div class="modal-overlay active" id="finish-modal" style="z-index: 4000;">
@@ -1103,7 +708,7 @@ function showCompletionOptions(order) {
 
 const SITE_CONFIG = {
   serverName: "Forest Store",
-  discordUrl: "https://discord.gg/akJzbRqeK"
+  discordUrl: FOREST_CONFIG.discordInvite
 };
 
 document.querySelectorAll('.server-name, .server-name-inline').forEach(el => el.textContent = SITE_CONFIG.serverName);
@@ -1114,6 +719,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
 const pendingCheckout = new URLSearchParams(location.search).get('checkout') === '1';
 if (pendingCheckout) history.replaceState(null, '', location.pathname);
 Cart.onCheckout = openCartCheckout;
+const catalogReady = loadCatalog();
 
 let progress = 0;
 const fill = document.getElementById('load-bar-fill');
@@ -1132,7 +738,10 @@ const loadInterval = setInterval(() => {
         ls.style.display = 'none';
         document.getElementById('site').style.display = 'block';
         renderProducts();
-        if (pendingCheckout) openCartCheckout();
+        catalogReady.then(() => {
+          renderProducts();
+          if (pendingCheckout) openCartCheckout();
+        });
       }, 400);
     }, 200);
   }

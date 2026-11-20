@@ -23,8 +23,11 @@
 
 <link rel="stylesheet" href="css/review.css">
 <link rel="stylesheet" href="css/cart.css">
+<script src="js/config.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/cart.js"></script>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
 </head>
 <body>
 
@@ -132,6 +135,7 @@
 
             <div id="reviews-container" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:20px;">
             </div>
+            <div id="reviews-pagination" class="pagination-nav"></div>
           </div>
 
           <div style="position:sticky; top:100px; background:rgba(255,255,255,.02); border:1px solid rgba(0,255,82,.25); border-radius:20px; padding:28px; box-shadow:0 0 30px rgba(0,0,0,0.5);">
@@ -148,21 +152,58 @@
             <form id="review-form" onsubmit="submitNewReview(event)" style="display:flex; flex-direction:column; gap:16px;">
               <div>
                 <label style="display:block; color:#d1d5db; font-size:13px; font-weight:700; margin-bottom:6px;">Your Name</label>
-                <input type="text" id="rev-name" required placeholder="e.g. Rayen M." class="form-input" />
-              </div>
-
-              <div>
-                <label style="display:block; color:#d1d5db; font-size:13px; font-weight:700; margin-bottom:6px;">Select Role (Client Type)</label>
-                <select id="rev-role" class="form-input" style="background:#0a0d0a; cursor:pointer;">
-                  <option value="Client • Gamer">Client • Gamer</option>
-                  <option value="Client • Server Owner">Client • Server Owner</option>
-                  <option value="Client • VIP Member">Client • VIP Member</option>
-                </select>
+                <input type="text" id="rev-name" readonly required placeholder="Log in with Discord to write a review" class="form-input form-input-readonly" />
               </div>
 
               <div>
                 <label style="display:block; color:#d1d5db; font-size:13px; font-weight:700; margin-bottom:6px;">Product Purchased</label>
-                <input type="text" id="rev-product" required placeholder="e.g. Free Fire Diamonds / Discord Bot" class="form-input" />
+                <select id="rev-product" required class="form-input form-select">
+                  <option value="" disabled selected>Select the product you purchased</option>
+                  <optgroup label="Discord">
+                    <option value="Custom Discord Bot">Custom Discord Bot</option>
+                    <option value="Discord Nitro Boost">Discord Nitro Boost</option>
+                    <option value="Full Server Setup &amp; Design">Full Server Setup &amp; Design</option>
+                    <option value="Aged Discord Accounts (2016-2020)">Aged Discord Accounts (2016-2020)</option>
+                    <option value="Discord Nitro Gift Link">Discord Nitro Gift Link</option>
+                    <option value="Direct Server Boosts">Direct Server Boosts</option>
+                    <option value="Discord Profile Effects &amp; Decoration">Discord Profile Effects &amp; Decoration</option>
+                    <option value="24/7 Discord Bot Hosting">24/7 Discord Bot Hosting</option>
+                  </optgroup>
+                  <optgroup label="Gaming &amp; Top-Ups">
+                    <option value="Free Fire Diamonds">Free Fire Diamonds</option>
+                    <option value="PUBG Mobile UC">PUBG Mobile UC</option>
+                    <option value="eFootball Coins">eFootball Coins</option>
+                    <option value="Blood Strike Gold">Blood Strike Gold</option>
+                    <option value="Roblox Robux">Roblox Robux</option>
+                    <option value="GTA V Premium Edition Key">GTA V Premium Edition Key</option>
+                  </optgroup>
+                  <optgroup label="Social Media">
+                    <option value="YouTube Sponsored Ad">YouTube Sponsored Ad</option>
+                    <option value="Facebook Sponsored Ad">Facebook Sponsored Ad</option>
+                    <option value="Website Traffic">Website Traffic</option>
+                    <option value="Badge Verification">Badge Verification</option>
+                    <option value="ChatGPT Premium">ChatGPT Premium</option>
+                    <option value="Canva Pro">Canva Pro</option>
+                    <option value="Instagram Growth Pack">Instagram Growth Pack</option>
+                    <option value="YouTube Creator Bundle">YouTube Creator Bundle</option>
+                    <option value="Kick Stream Accelerator">Kick Stream Accelerator</option>
+                    <option value="Twitch Channel Booster">Twitch Channel Booster</option>
+                    <option value="Bigo Live Stream Views">Bigo Live Stream Views</option>
+                    <option value="LinkedIn Premium Business">LinkedIn Premium Business</option>
+                  </optgroup>
+                  <optgroup label="Subscriptions">
+                    <option value="Premium Netflix Subscription">Premium Netflix Subscription</option>
+                    <option value="Spotify Premium (1 Year)">Spotify Premium (1 Year)</option>
+                    <option value="Shahid VIP Premium">Shahid VIP Premium</option>
+                    <option value="Amazon Prime Video">Amazon Prime Video</option>
+                    <option value="Crunchyroll Mega Fan">Crunchyroll Mega Fan</option>
+                  </optgroup>
+                  <optgroup label="Recharge App">
+                    <option value="TikTok Coins Recharge">TikTok Coins Recharge</option>
+                    <option value="USDT Crypto Exchange">USDT Crypto Exchange</option>
+                    <option value="Azar Gems Recharge">Azar Gems Recharge</option>
+                  </optgroup>
+                </select>
               </div>
 
               <div>
@@ -298,7 +339,7 @@
               </div>
               <div>
                 <div style="font-size: 11px; color: #6b7280;">Phone</div>
-                <div style="font-size: 13px; color: #fff; font-weight: 600;">+216 </div>
+                <div data-phone style="font-size: 13px; color: #fff; font-weight: 600;">+216</div>
               </div>
             </div>
           </div>

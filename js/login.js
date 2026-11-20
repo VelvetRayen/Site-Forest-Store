@@ -81,10 +81,18 @@ const loadInterval = setInterval(() => {
 
 const DISCORD_CLIENT_ID = "1553131920823689226";
 
+function newOAuthState() {
+  const bytes = new Uint8Array(16);
+  crypto.getRandomValues(bytes);
+  const state = Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('');
+  sessionStorage.setItem('forest_oauth_state', state);
+  return state;
+}
+
 function handleDiscordLogin() {
   Auth.rememberNext();
   const currentRedirectUri = window.location.origin + window.location.pathname;
-  const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&response_type=token&redirect_uri=${encodeURIComponent(currentRedirectUri)}&scope=identify+email`;
+  const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&response_type=token&redirect_uri=${encodeURIComponent(currentRedirectUri)}&scope=identify+email&state=${newOAuthState()}`;
   window.location.href = discordAuthUrl;
 }
 
@@ -99,39 +107,27 @@ function handleDiscordLogin() {
   if (hash && hash.includes("access_token")) {
     const params = new URLSearchParams(hash.substring(1));
     const accessToken = params.get("access_token");
+    const expectedState = sessionStorage.getItem('forest_oauth_state');
+    sessionStorage.removeItem('forest_oauth_state');
+    window.history.replaceState({}, document.title, window.location.pathname);
 
-    if (accessToken) {
-      showToast("Connecting with Discord...", "info");
-
-      fetch("https://discord.com/api/users/@me", {
-        headers: { authorization: `Bearer ${accessToken}` }
-      })
-      .then(response => response.json())
-      .then(userData => {
-        if (userData.id) {
-          const loggedUser = {
-            name: userData.global_name || userData.username,
-            username: userData.username,
-            email: userData.email || `${userData.username}@discord.user`,
-            discordId: userData.id,
-            avatar: userData.avatar
-              ? `https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png`
-              : null
-          };
-
-          Auth.setUser(loggedUser);
-          window.history.replaceState({}, document.title, window.location.pathname);
-          showToast(`Welcome back, ${loggedUser.name}!`, "success");
-
-          setTimeout(() => {
-            window.location.href = Auth.consumeNext();
-          }, 1500);
-        }
-      })
-      .catch(error => {
-        showToast("Discord connection failed.", "error");
-      });
+    if (!accessToken || !expectedState || params.get("state") !== expectedState) {
+      showToast("Login could not be verified. Please try again.", "error");
+      return;
     }
+
+    showToast("Connecting with Discord...", "info");
+    Auth.request('/api/auth/discord', { method: 'POST', body: { accessToken } })
+      .then(res => {
+        if (!res.ok || !res.data.token) {
+          showToast(res.data.error || "Discord connection failed.", "error");
+          return;
+        }
+        Auth.setSession(res.data.token, res.data.user);
+        showToast(`Welcome back, ${res.data.user.name}!`, "success");
+        setTimeout(() => { window.location.href = Auth.consumeNext(); }, 1500);
+      })
+      .catch(() => showToast("Server unreachable. It may be waking up, try again in a moment.", "error"));
   }
 })();
 
